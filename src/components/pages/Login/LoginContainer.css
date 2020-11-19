@@ -1,0 +1,68 @@
+/* resfeber 
+
+
+position: absolute;
+width: 171.66px;
+height: 61.94px;
+left: 144.34px;
+top: 64px;
+
+font-family: Barlow;
+font-style: normal;
+font-weight: 600;
+font-size: 51.6307px;
+line-height: 62px;
+identical to box height 
+
+
+color: #FF511E;
+
+
+font-family: Barlow;
+font-style: normal;
+color: #FF511E;*/
+
+
+h2.okta-form-title.o-form-head { 
+    font-family: Barlow !important;
+    font-style: bold !important;
+    font-weight: 600 !important;
+    font-size: 23px !important;
+    letter-spacing: -0.07em !important;
+    color: black !important;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url("./images/blacktexture.jpg");
+}
+
+.loginCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* border: 2px solid orange; */
+}
+
+#root {
+    /* border: 2px solid blue; */
+}
+
+.logo {
+    /* border: 2px solid pink; */
+    align-items: center;
+}
+
+.okta-sign-in-header.auth-header {
+    display: none !important;
+}
+
+#okta-sign-in.auth-container .button-primary {
+    background: transparent;
+    background-color: #FF511E !important;
+}
