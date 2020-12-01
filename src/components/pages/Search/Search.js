@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
-import List from '../../common/List';
 import { apiGet, apiPost, apiDelete } from '../../../api';
 
 function Search() {
