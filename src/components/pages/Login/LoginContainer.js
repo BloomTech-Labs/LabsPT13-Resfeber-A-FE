@@ -13,17 +13,13 @@ const LoginContainer = () => {
       baseUrl: issuer ? issuer.split('/oauth2')[0] : '',
       clientId,
       redirectUri,
-      registration: {
-        // there is more we can do to handle some errors here.
-      },
+      registration: {},
       features: { registration: false },
       // turning this feature on allows your widget to use Okta for user registration
       logo: 'path',
-      // add your custom logo to your signing/register widget here.
       i18n: {
         en: {
-          'primaryauth.title': 'welcome to resfeber, please log in',
-          // change title for your app
+          'primaryauth.title': 'welcome to resfeber',
         },
       },
       authParams: {
@@ -49,7 +45,7 @@ const LoginContainer = () => {
   }, []);
 
   return (
-    <container className="loginCont">
+    <div className="loginCont">
       <svg
         className="logo"
         width="633"
@@ -76,7 +72,7 @@ const LoginContainer = () => {
         />
       </svg>
       <div id="sign-in-widget" />
-    </container>
+    </div>
   );
 };
 

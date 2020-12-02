@@ -38,6 +38,18 @@ const apiAuthGet = authHeader => {
   return axios.get(apiUrl, { headers: authHeader });
 };
 
+//added line
+const apiGet = (authState, url, payload = null) => {
+  console.log(payload, `${process.env.REACT_APP_API_URI}/${url}`);
+  const body = {
+    headers: getAuthHeader(authState),
+  };
+  return axios.get(
+    `${process.env.REACT_APP_API_URI}${url}/${payload.id}`,
+    body
+  );
+};
+
 const getProfileData = authState => {
   try {
     return apiAuthGet(getAuthHeader(authState)).then(response => response.data);
@@ -49,4 +61,4 @@ const getProfileData = authState => {
   }
 };
 
-export { sleep, getExampleData, getProfileData, getDSData };
+export { sleep, getExampleData, getProfileData, getDSData, apiGet };
