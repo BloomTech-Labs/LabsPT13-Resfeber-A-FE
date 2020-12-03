@@ -1,0 +1,26 @@
+.page {
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    padding: 1%;
+    color: black;
+    font-size: large;
+    margin-top: 0%;
+    border: 2px pink solid;
+}
+
+.crTitle {
+    font-family: Barlow;
+    font-style: bold;
+    font-weight: 600;
+    font-size: 54px;
+    letter-spacing: -0.07em;
+    color: black;
+    border: 2px yellow solid;
+}
+
+.crLogo {
+    padding-bottom: 5%;
+    margin-top: 0%;
+    border: 2px purple solid;
+}

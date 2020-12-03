@@ -7,14 +7,11 @@ function RenderHomePage(props) {
   const { userInfo, authService } = props;
   return (
     <div className="containerDiv">
-      <h1>Hi {userInfo.name} Welcome to Labs Basic SPA</h1>
+      <h1>Resfeber</h1>
       <div>
+        <p>Below are some nice links:</p>
         <p>
-          This is an example of a common example of how we'd like for you to
-          approach components.
-        </p>
-        <p>
-          <Link to="/pinned">Pinned</Link>
+          <Link to="/createTrip">Create Trip</Link>
         </p>
         <p>
           <Link to="/profile-list">Profiles Example</Link>
