@@ -24,6 +24,13 @@ function RenderPinnedPage(props) {
           </div>
           <div className="pinned-items">
             <div className="pinned-title">Trip Details:</div>
+            <ul>
+              <li>Dinner</li>
+              <li>Hotel</li>
+              <li>Activity</li>
+              <li>Land Mark</li>
+              <li>Activity Day 2</li>
+            </ul>
           </div>
         </div>
       </div>
