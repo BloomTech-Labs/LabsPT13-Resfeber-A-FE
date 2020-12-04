@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../common';
 import './RenderHome.css';
+import rLogo from './Logo.svg';
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
   return (
     <div className="containerDiv">
-      <h1>Resfeber</h1>
+      <img className="rLogo" src={rLogo} alt="rLogo" />
       <div>
         <p>Below are some nice links:</p>
         <p>

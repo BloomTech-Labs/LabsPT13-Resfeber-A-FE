@@ -7,15 +7,26 @@ import Logo from './Logo.svg';
 function RenderPinnedPage(props) {
   return (
     <div className="page">
-      <img className="crLogo" src={Logo} alt="Logo" />
-      <div className="crTitle">Create Trip: </div>
-      <form>
-        <label>
-          Search:
-          <input type="text" name="Search" />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="search-n-feed">
+        <div className="logo-container">
+          <img className="crLogo" src={Logo} alt="Logo" />
+        </div>
+        <div className="split-box">
+          <div className="search-box">
+            <div className="crTitle">Create Trip: </div>
+            <form className="searchForm">
+              <label>
+                Search:
+                <input className="searchBar" type="text" name="Search" />
+              </label>
+              <input className="submit" type="submit" value="Submit" />
+            </form>
+          </div>
+          <div className="pinned-items">
+            <div className="pinned-title">Trip Details:</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

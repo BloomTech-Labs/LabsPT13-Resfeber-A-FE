@@ -1,6 +1,7 @@
 .containerDiv {
     background-color: white;
     padding: 15.5%;
-    width: 90vw;
-    border-radius: 10px;
+    width: 100vw;
+    height: 100vh;
+    
 }

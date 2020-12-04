@@ -1,4 +1,6 @@
 .page {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     width: 100vw;
     height: 100vh;
@@ -9,18 +11,85 @@
     border: 2px pink solid;
 }
 
+.split-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border: 3px salmon solid;
+}
+
+
+.search-n-feed {
+    display: flex;
+    flex-direction: column;
+    border: 2px teal solid;
+
+}
+
 .crTitle {
     font-family: Barlow;
+    padding-left: 7%;
     font-style: bold;
     font-weight: 600;
     font-size: 54px;
     letter-spacing: -0.07em;
     color: black;
-    border: 2px yellow solid;
+    /* border: 2px maroon solid; */
+}
+
+.logo-container {
+    width: 100%;
 }
 
 .crLogo {
     padding-bottom: 5%;
     margin-top: 0%;
-    border: 2px purple solid;
+    /* border: 2px purple solid; */
 }
+
+.searchForm {
+    margin-left: 13%;
+    display: flex;
+    flex-direction: row; 
+    width: 100%;
+    border: 3px orange solid;
+}
+
+.searchBar {
+    margin-left: 1rem;
+    width: 70%;
+}
+
+
+.search-box {
+    width: 45%;
+}
+
+.submit {
+    margin-left: 1rem;
+    color: #fd6d41;
+    height: 10%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: rgb(22, 22, 22);
+    border-radius: 7px;
+    /* border: 2px black solid; */
+}
+
+.pinned-items {
+    background-color: rgb(20, 20, 20);
+    color: white;
+    width: 35vw;
+
+}
+
+.pinned-title {
+    font-family: Barlow;
+    padding-left: 7%;
+    font-style: bold;
+    font-weight: 600;
+    font-size: 54px;
+    letter-spacing: -0.07em;
+}
+
