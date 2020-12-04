@@ -9,7 +9,7 @@ function RenderHomePage(props) {
   return (
     <div className="containerDiv">
       <img className="rLogo" src={rLogo} alt="rLogo" />
-      <div>
+      <div className="list-links">
         <p>Below are some nice links:</p>
         <p>
           <Link to="/createTrip">Create Trip</Link>
