@@ -19,6 +19,7 @@ import { LoginPage } from './components/pages/Login';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
+import expandedPageTest from './components/pages/ExpandedPage/ExpandedPage';
 
 ReactDOM.render(
   <Router>
@@ -46,6 +47,7 @@ function App() {
         <Route path="/welcome" component={WelcomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
+        <Route path="/expandedPageTest" component={expandedPageTest} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
         <SecureRoute
           path="/"
