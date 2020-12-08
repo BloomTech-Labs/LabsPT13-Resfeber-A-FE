@@ -1,0 +1,26 @@
+
+
+.containerDiv {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    padding: 1%;
+    color: black;
+    font-size: large;
+    margin-top: 0%;
+    overflow-x: hidden;
+    
+}
+
+.rLogo {
+    width: 17%;
+    padding-bottom: 1%;
+}
+
+.list-links {
+    background-color: white;
+    height: 90vh;
+    padding: 2.5%;
+    font-weight: 400;
+}
