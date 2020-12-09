@@ -1,7 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { apiGet, apiPost } from '../../../api';
-import { InputGroup, InputGroupAddon, Input, Button, Form } from 'reactstrap';
+import {
+  InputGroup,
+  InputGroupAddon,
+  Input,
+  Button,
+  Form,
+  Card,
+  CardBody,
+  CardHeader,
+} from 'reactstrap';
 
 function Search() {
   const { authState, authService } = useOktaAuth();
@@ -40,17 +49,6 @@ function Search() {
     setTrip_name(event.target.value);
   };
 
-  /* const createTrip = (event) => {
-    event.preventDefault()
-    const body = {
-      headers: { Authorization: `Bearer ${authState.idToken}` },
-      user_id: userInfo.sub,
-      trip_name: trip_name
-    }
-    console.log("createTrip body:",body)
-    axios.post(`${process.env.REACT_APP_API_URI}/trips`, body);
-  } */
-
   const createTrip = event => {
     event.preventDefault();
     apiPost(authState, '/trips', {
@@ -61,16 +59,29 @@ function Search() {
 
   return (
     <>
-      <div id="trips-container">
-        <div id="trips-list">
+      <div
+        id="trips-container"
+        style={{ maxWidth: '70%', margin: '0 auto', alignItems: 'center' }}
+      >
+        <div
+          id="trips-list"
+          style={{ display: 'flex', justifyContent: 'center' }}
+        >
           {authState.isAuthenticated && userInfo && trips
             ? trips.map(e => {
-                return <h2 key={e.id}>{e.destination_name}</h2>;
+                return (
+                  <Card key={e.id} style={{ maxWidth: '15rem' }}>
+                    <CardHeader tag="h5">{e.trip_name}</CardHeader>
+                    <CardBody>
+                      <Button>Manage Trip</Button>
+                    </CardBody>
+                  </Card>
+                );
               })
             : null}
         </div>
         <Form onSubmit={createTrip}>
-          <InputGroup>
+          <InputGroup style={{ maxWidth: '30rem' }}>
             <InputGroupAddon addonType="prepend">
               <Button type="submit"> Submit </Button>
             </InputGroupAddon>
