@@ -39,10 +39,11 @@ const apiAuthGet = authHeader => {
 };
 
 const apiGet = (authState, url, payload = null) => {
-  console.log(payload, `${process.env.REACT_APP_API_URI}/${url}`);
+  //console.log(payload, `${process.env.REACT_APP_API_URI}${url}`);
   const body = {
     headers: getAuthHeader(authState),
   };
+  console.log('apiGet body: ', body);
   return axios.get(
     `${process.env.REACT_APP_API_URI}${url}/${payload.id}`,
     body
@@ -50,13 +51,15 @@ const apiGet = (authState, url, payload = null) => {
 };
 
 const apiPost = (authState, url, payload = null) => {
-  console.log(payload, `${process.env.REACT_APP_API_URI}/${url}`);
+  //console.log(payload, `${process.env.REACT_APP_API_URI}/${url}`);
   const body = {
-    headers: getAuthHeader(authState),
     ...payload,
   };
+  const config = {
+    headers: getAuthHeader(authState),
+  };
   console.log(body);
-  return axios.post(`${process.env.REACT_APP_API_URI}${url}`, body);
+  return axios.post(`${process.env.REACT_APP_API_URI}${url}`, body, config);
 };
 
 const apiPut = (authState, url, payload = null) => {
@@ -91,6 +94,7 @@ const getProfileData = authState => {
 };
 
 export {
+  getAuthHeader,
   sleep,
   getExampleData,
   getProfileData,

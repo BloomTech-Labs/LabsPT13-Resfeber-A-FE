@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Route,
@@ -18,7 +19,7 @@ import { LoginPage } from './components/pages/Login';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
-import { Search } from './components/pages/Search';
+import { Trips } from './components/pages/Trips';
 
 ReactDOM.render(
   <Router>
@@ -47,12 +48,12 @@ function App() {
         <Route path="/implicit/callback" component={LoginCallback} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
         <SecureRoute
-          path="/"
+          path="/homepage"
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
         <SecureRoute path="/example-list" component={ExampleListPage} />
-        <SecureRoute path="/search" component={Search} />
+        <SecureRoute path="/trips" component={Trips} />
         <SecureRoute path="/profile-list" component={ProfileListPage} />
         <SecureRoute path="/datavis" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
