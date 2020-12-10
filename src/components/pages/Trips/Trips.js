@@ -1,18 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { apiGet, apiPost } from '../../../api';
-import {
-  InputGroup,
-  InputGroupAddon,
-  Input,
-  Button,
-  Form,
-  Card,
-  CardBody,
-  CardHeader,
-} from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, Button, Form } from 'reactstrap';
 
-function Search() {
+import TripCard from './TripCard';
+
+function Trips() {
   const { authState, authService } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
   const [trips, setTrips] = useState(null);
@@ -27,9 +20,7 @@ function Search() {
     memoAuthService
       .getUser()
       .then(info => {
-        //console.log(info);
         apiGet(authState, '/trips', { id: info.sub }).then(data => {
-          console.log('GET /trips/:user_id', data.data);
           setTrips(data.data);
         });
         // if user is authenticated we can use the authService to snag some user info.
@@ -43,7 +34,7 @@ function Search() {
         return setUserInfo(null);
       });
     return () => (isSubscribed = false);
-  }, [memoAuthService]);
+  }, [memoAuthService, authState]);
 
   const handleChanges = event => {
     setTrip_name(event.target.value);
@@ -54,14 +45,23 @@ function Search() {
     apiPost(authState, '/trips', {
       user_id: userInfo.sub,
       trip_name: trip_name,
+    }).then(response => {
+      setTrips([...trips, response.data[0]]);
     });
+  };
+
+  const deleteTrip = id => {
+    const newTrips = trips.filter(e => {
+      return e.id !== id;
+    });
+    setTrips(newTrips);
   };
 
   return (
     <>
       <div
         id="trips-container"
-        style={{ maxWidth: '70%', margin: '0 auto', alignItems: 'center' }}
+        style={{ maxWidth: '70%', margin: '1.5rem auto', alignItems: 'center' }}
       >
         <div
           id="trips-list"
@@ -70,20 +70,24 @@ function Search() {
           {authState.isAuthenticated && userInfo && trips
             ? trips.map(e => {
                 return (
-                  <Card key={e.id} style={{ maxWidth: '15rem' }}>
-                    <CardHeader tag="h5">{e.trip_name}</CardHeader>
-                    <CardBody>
-                      <Button>Manage Trip</Button>
-                    </CardBody>
-                  </Card>
+                  <TripCard
+                    key={e.id}
+                    trip_name={e.trip_name}
+                    id={e.id}
+                    authState={authState}
+                    deleteTrip={deleteTrip}
+                  />
                 );
               })
             : null}
         </div>
         <Form onSubmit={createTrip}>
-          <InputGroup style={{ maxWidth: '30rem' }}>
+          <InputGroup style={{ maxWidth: '30rem', margin: '1.5rem auto' }}>
             <InputGroupAddon addonType="prepend">
-              <Button type="submit"> Submit </Button>
+              <Button color="primary" type="submit">
+                {' '}
+                Submit{' '}
+              </Button>
             </InputGroupAddon>
             <Input placeholder="Beach Getaway" onChange={handleChanges} />
           </InputGroup>
@@ -93,4 +97,4 @@ function Search() {
   );
 }
 
-export default Search;
+export default Trips;

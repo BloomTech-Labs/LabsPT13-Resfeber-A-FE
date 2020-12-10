@@ -38,6 +38,8 @@ const apiAuthGet = authHeader => {
   return axios.get(apiUrl, { headers: authHeader });
 };
 
+//these custom api methods should make using our backend easier by standardizing the inputs
+
 const apiGet = (authState, url, payload = null) => {
   //console.log(payload, `${process.env.REACT_APP_API_URI}${url}`);
   const body = {
@@ -51,34 +53,35 @@ const apiGet = (authState, url, payload = null) => {
 };
 
 const apiPost = (authState, url, payload = null) => {
-  //console.log(payload, `${process.env.REACT_APP_API_URI}/${url}`);
+  //console.log('apiPost:'payload, `${process.env.REACT_APP_API_URI}/${url}`);
   const body = {
     ...payload,
   };
   const config = {
     headers: getAuthHeader(authState),
   };
-  console.log(body);
   return axios.post(`${process.env.REACT_APP_API_URI}${url}`, body, config);
 };
 
 const apiPut = (authState, url, payload = null) => {
-  console.log(payload, `${process.env.REACT_APP_API_URI}/${url}`);
+  //console.log('apiPut:'payload, `${process.env.REACT_APP_API_URI}/${url}`);
   const body = {
     headers: getAuthHeader(authState),
     ...payload,
   };
-  console.log(body);
-  return axios.put(`${process.env.REACT_APP_API_URI}${url}`, body);
+  const config = {
+    headers: getAuthHeader(authState),
+  };
+
+  return axios.put(`${process.env.REACT_APP_API_URI}${url}`, body, config);
 };
 
 const apiDelete = (authState, url, payload = null) => {
-  console.log(payload, `${process.env.REACT_APP_API_URI}/${url}`);
+  //console.log('apiDelete:',payload, `${process.env.REACT_APP_API_URI}/${url}`);
   const body = {
     headers: getAuthHeader(authState),
-    ...payload,
+    data: { ...payload },
   };
-  console.log(body);
   return axios.delete(`${process.env.REACT_APP_API_URI}${url}`, body);
 };
 
