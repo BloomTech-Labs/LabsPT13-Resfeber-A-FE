@@ -57,6 +57,18 @@ function Trips() {
     setTrips(newTrips);
   };
 
+  const updateTripName = trip => {
+    const newTrips = trips;
+    newTrips.forEach(e => {
+      if (e.id === trip.id) {
+        console.log(e.trip_name);
+        e.trip_name = trip.trip_name;
+      }
+    });
+    console.log(newTrips);
+    setTrips(newTrips);
+  };
+
   return (
     <>
       <div
@@ -76,6 +88,7 @@ function Trips() {
                     id={e.id}
                     authState={authState}
                     deleteTrip={deleteTrip}
+                    updateTripName={updateTripName}
                   />
                 );
               })
