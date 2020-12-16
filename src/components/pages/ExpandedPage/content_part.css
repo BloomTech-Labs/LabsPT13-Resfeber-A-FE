@@ -1,0 +1,11 @@
+.Google_map {
+  border-radius: 55px;
+
+  padding: 0 20px;
+  width: 100%;
+  height: 100%;
+}
+.contentPartContainer {
+  display: flex;
+  flex-direction: row;
+}
