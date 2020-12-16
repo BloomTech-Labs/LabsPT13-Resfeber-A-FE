@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { apiDelete, apiPut } from '../../../api';
 import { Button, Card, CardBody, CardHeader, Form, Input } from 'reactstrap';
 
 function TripCard(props) {
   const [editMode, setEditMode] = useState(false);
+  const history = useHistory();
   const deleteTrip = event => {
     event.preventDefault();
     apiDelete(props.authState, '/trips', {
@@ -35,6 +37,10 @@ function TripCard(props) {
     });
   };
 
+  const goToManageTrips = () => {
+    history.push('/createTrip');
+  };
+
   return (
     <Card style={{ maxWidth: '15rem' }}>
       {editMode ? (
@@ -47,7 +53,11 @@ function TripCard(props) {
         </CardHeader>
       )}
       <CardBody onClick={disableEditMode}>
-        <Button color="info" style={{ marginRight: '.5rem' }}>
+        <Button
+          onClick={goToManageTrips}
+          color="info"
+          style={{ marginRight: '.5rem' }}
+        >
           Manage Trip
         </Button>
         <Button onClick={deleteTrip}>Delete</Button>

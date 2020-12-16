@@ -57,7 +57,7 @@ function Trips() {
     setTrips(newTrips);
   };
 
-  const updateTripName = trip => {
+  /*  const updateTripName = trip => {
     const newTrips = trips;
     newTrips.forEach(e => {
       if (e.id === trip.id) {
@@ -66,6 +66,14 @@ function Trips() {
       }
     });
     console.log(newTrips);
+    setTrips(newTrips);
+  }; */
+
+  const updateTripName = trip => {
+    const newTrips = trips.filter(e => {
+      return e.id !== trip.id;
+    });
+    newTrips.push(trip);
     setTrips(newTrips);
   };
 
