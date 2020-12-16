@@ -20,6 +20,7 @@ import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import { Trips } from './components/pages/Trips';
+import RenderPinnedPage from './components/pages/Pinned/RenderPinnedPage';
 
 ReactDOM.render(
   <Router>
@@ -46,6 +47,7 @@ function App() {
       <Switch>
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
+        <Route path="/createTrip" component={RenderPinnedPage} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
         <SecureRoute
           path="/"
