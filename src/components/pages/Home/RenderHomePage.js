@@ -24,6 +24,10 @@ function RenderHomePage(props) {
           <Link to="/datavis">Data Visualizations Example</Link>
         </p>
         <p>
+          {/* Added link to test Expanded Page Will delete later */}
+          <Link to="/expandedPageTest">Expanded Page Test</Link>
+        </p>
+        <p>
           <Button
             handleClick={() => authService.logout()}
             buttonText="Logout"
