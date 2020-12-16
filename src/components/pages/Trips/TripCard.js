@@ -42,7 +42,7 @@ function TripCard(props) {
   };
 
   return (
-    <Card style={{ maxWidth: '15rem' }}>
+    <Card style={{ maxWidth: '15rem', minWidth: '15rem', margin: '0 .5rem' }}>
       {editMode ? (
         <Form onSubmit={changeName}>
           <Input name="trip_name" placeholder={props.trip_name}></Input>
