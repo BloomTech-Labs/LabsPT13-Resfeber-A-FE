@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../common';
+import './RenderHome.css';
+import rLogo from './Logo.svg';
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
   return (
-    <div>
-      <h1>Hi {userInfo.name} Welcome to Labs Basic SPA</h1>
-      <div>
+    <div className="containerDiv">
+      <img className="rLogo" src={rLogo} alt="rLogo" />
+      <div className="list-links">
+        <p>Below are some nice links:</p>
         <p>
-          This is an example of a common example of how we'd like for you to
-          approach components.
+          <Link to="/createTrip">Create Trip</Link>
         </p>
         <p>
           <Link to="/profile-list">Profiles Example</Link>
