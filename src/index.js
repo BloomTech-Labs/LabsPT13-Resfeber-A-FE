@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Route,
@@ -10,6 +11,7 @@ import {
 import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
+import WelcomePage from './components/pages/WelcomePage/WelcomePage';
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
 import { HomePage } from './components/pages/Home';
@@ -19,6 +21,9 @@ import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import ManageTrip from './components/pages/ManageTrip/ManageTrip';
+import expandedPageTest from './components/pages/ExpandedPage/ExpandedPage';
+import { Trips } from './components/pages/Trips';
+
 
 ReactDOM.render(
   <Router>
@@ -37,15 +42,17 @@ function App() {
   const authHandler = () => {
     // We pass this to our <Security /> component that wraps our routes.
     // It'll automatically check if userToken is available and push back to login if not :)
-    history.push('/login');
+    history.push('/welcome');
   };
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
       <Switch>
+        <Route path="/welcome" component={WelcomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
         <Route path="/manage-trip" component={ManageTrip} />
+        <Route path="/expandedPageTest" component={expandedPageTest} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
         <SecureRoute
           path="/"
