@@ -27,7 +27,7 @@ function ManageTrip() {
       method: 'GET',
       redirect: 'follow',
     };
-    console.log('THE URL GOING TO API: ', url);
+    // console.log('THE URL GOING TO API: ', url);
 
     axios
       .get(url, requestOptions)
@@ -48,7 +48,7 @@ function ManageTrip() {
   };
 
   Object.values(searchResults).forEach(val => {
-    console.log('VAL', val, 'typeVAL: ', val.name);
+    console.log('VAL', val, 'typeVAL Name: ', val.name);
     return val;
   });
   console.log('STATE OUTSIDE: ', searchResults, 'specific: ', searchResults[0]);
@@ -79,13 +79,36 @@ function ManageTrip() {
               <img className="map" src={Map} alt="Map" />
             </div>
             <div className="results">Results: {searchValue}</div>
-            <div className="resultFill">
-              {/* <h1>{val.name}</h1> */}
-              <div className="itemCard">
-                <div className="itemContainer">
-                  <img className="items" src={Items} alt="Items" />
+
+            <div className="resultsFill">
+              {searchResults.map((val, index) => (
+                <div className="itemCard">
+                  <div className="rightBox">
+                    <p val={val} key={val.id}>
+                      {val.name}
+                    </p>
+                    <p val={val} key={val.id}>
+                      {val.formatted_address}
+                    </p>
+                  </div>
+                  <div className="leftBox">
+                    <img
+                      className="itemIcon"
+                      val={val}
+                      key={val.id}
+                      src={val.icon}
+                    />
+                    <div className="itemRow">
+                      <p val={val} key={val.id}>
+                        {val.rating}
+                      </p>
+                      <p val={val} key={val.id}>
+                        {val.business_status}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="pinned-items">
@@ -105,3 +128,11 @@ function ManageTrip() {
 }
 
 export default ManageTrip;
+
+{
+  /* <div className="itemCard">
+                <div className="itemContainer">
+                  <img className="items" src={Items} alt="Items" />
+                </div>
+              </div> */
+}
