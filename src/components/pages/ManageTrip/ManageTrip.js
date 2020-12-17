@@ -9,10 +9,11 @@ require('dotenv').config();
 
 // import PropTypes from 'prop-types';
 
-let resObj = [];
+let resObj = [{}];
 
 function ManageTrip() {
   const [searchValue, setSearchValue] = useState('');
+  const [searchResults, setSearchResults] = useState([{}]);
 
   const handleChange = e => {
     setSearchValue(e.target.value);
@@ -41,12 +42,16 @@ function ManageTrip() {
           'setting resObj SEARCH RESULTS: ',
           resObj
         );
-        return resObj;
+        setSearchResults(resObj);
       })
       .catch(error => console.log('error', error));
-    console.log('RES OB INSIDE: ', resObj);
   };
 
+  Object.values(searchResults).forEach(val => {
+    console.log('VAL', val, 'typeVAL: ', val.name);
+    return val;
+  });
+  console.log('STATE OUTSIDE: ', searchResults, 'specific: ', searchResults[0]);
   return (
     <div className="page">
       <div className="search-n-feed">
@@ -75,6 +80,7 @@ function ManageTrip() {
             </div>
             <div className="results">Results: {searchValue}</div>
             <div className="resultFill">
+              {/* <h1>{val.name}</h1> */}
               <div className="itemCard">
                 <div className="itemContainer">
                   <img className="items" src={Items} alt="Items" />
