@@ -6,13 +6,14 @@ import rLogo from './Logo.svg';
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
+  console.log(userInfo);
   return (
     <div className="containerDiv">
       <img className="rLogo" src={rLogo} alt="rLogo" />
       <div className="list-links">
         <p>Below are some nice links:</p>
         <p>
-          <Link to="/createTrip">Create Trip</Link>
+          <Link to="/manage-trip">Create Trip</Link>
         </p>
         <p>
           <Link to="/profile-list">Profiles Example</Link>

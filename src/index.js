@@ -20,9 +20,10 @@ import { LoginPage } from './components/pages/Login';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
+import ManageTrip from './components/pages/ManageTrip/ManageTrip';
 import expandedPageTest from './components/pages/ExpandedPage/ExpandedPage';
 import { Trips } from './components/pages/Trips';
-import RenderPinnedPage from './components/pages/Pinned/RenderPinnedPage';
+
 
 ReactDOM.render(
   <Router>
@@ -50,9 +51,8 @@ function App() {
         <Route path="/welcome" component={WelcomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
+        <Route path="/manage-trip" component={ManageTrip} />
         <Route path="/expandedPageTest" component={expandedPageTest} />
-
-        <Route path="/createTrip" component={RenderPinnedPage} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
         <SecureRoute
           path="/"
