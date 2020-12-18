@@ -3,22 +3,22 @@ import './ManageTrip.css';
 import Logo from './Logo.svg';
 import axios from 'axios';
 import Map from './mapscreen.png';
-import Items from './restaurants.png';
 
 require('dotenv').config();
 
-// import PropTypes from 'prop-types';
-
+//declaring here so I can use it to get state in the global scope.
 let resObj = [{}];
 
 function ManageTrip() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
 
+  //takes in user input from searchbar
   const handleChange = e => {
     setSearchValue(e.target.value);
   };
 
+  //plugs user search value into the GET call to the google places API
   const handleSubmit = e => {
     e.preventDefault();
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchValue}&key=${process.env.REACT_APP_GOOGLE_KEY}`;
@@ -47,11 +47,13 @@ function ManageTrip() {
       .catch(error => console.log('error', error));
   };
 
+  //iterating over the response/state object
   Object.values(searchResults).forEach(val => {
     console.log('VAL', val, 'typeVAL Name: ', val.name);
     return val;
   });
   console.log('STATE OUTSIDE: ', searchResults, 'specific: ', searchResults[0]);
+
   return (
     <div className="page">
       <div className="search-n-feed">
@@ -81,34 +83,46 @@ function ManageTrip() {
             <div className="results">Results: {searchValue}</div>
 
             <div className="resultsFill">
-              {searchResults.map((val, index) => (
-                <div className="itemCard">
-                  <div className="rightBox">
-                    <p val={val} key={val.id}>
-                      {val.name}
-                    </p>
-                    <p val={val} key={val.id}>
-                      {val.formatted_address}
-                    </p>
-                  </div>
-                  <div className="leftBox">
-                    <img
-                      className="itemIcon"
-                      val={val}
-                      key={val.id}
-                      src={val.icon}
-                    />
-                    <div className="itemRow">
+              {/* conditonal rendering to prevent empty item card from rendering when there is no search value */}
+              {searchResults.length > 1 &&
+                searchResults.map((val, index) => (
+                  <div className="itemCard">
+                    <div className="rightBox">
                       <p val={val} key={val.id}>
-                        {val.rating}
+                        {val.name}
                       </p>
                       <p val={val} key={val.id}>
-                        {val.business_status}
+                        {val.formatted_address}
+                      </p>
+                      <div className="buttonRow">
+                        <button className="addTripButton">Add to Trip</button>
+                        <button className="viewDeetsButton">
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                    <div className="leftBox">
+                      <img
+                        className="itemIcon"
+                        val={val}
+                        key={val.id}
+                        src={val.icon}
+                      />
+                      <p val={val} key={val.id}>
+                        Rating: {val.rating}
+                      </p>
+                      <p val={val} key={val.id}>
+                        {/* conditonal rendering to indicate if business is still operational */}
+                        {val.business_status !== 'OPERATIONAL' && (
+                          <p>out of business</p>
+                        )}
+                        {val.business_status === 'OPERATIONAL' && (
+                          <p>in business</p>
+                        )}
                       </p>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
           <div className="pinned-items">
