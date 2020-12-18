@@ -1,9 +1,10 @@
 .welcomePageContainer {
   font-family: sans-serif;
   text-align: center;
-
-  padding: 10%;
   min-height: 100vh;
+}
+.logoContainer {
+  padding-top: 10vh;
 }
 .videoTag {
   position: fixed;
