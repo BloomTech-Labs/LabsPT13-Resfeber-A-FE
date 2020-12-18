@@ -48,9 +48,9 @@ function App() {
     <Security {...config} onAuthRequired={authHandler}>
       <Switch>
         <Route path="/welcome" component={WelcomePage} />
+        <Route path="/expandedPageTest" component={expandedPageTest} />
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
-        <Route path="/expandedPageTest" component={expandedPageTest} />
 
         <Route path="/createTrip" component={RenderPinnedPage} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}

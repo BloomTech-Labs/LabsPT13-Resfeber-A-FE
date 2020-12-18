@@ -22,44 +22,38 @@ font-family: Barlow;
 font-style: normal;
 color: #FF511E;*/
 
-
-h2.okta-form-title.o-form-head { 
-    font-family: Barlow !important;
-    font-style: bold !important;
-    font-weight: 600 !important;
-    font-size: 23px !important;
-    letter-spacing: -0.07em !important;
-    color: black !important;
-
+h2.okta-form-title.o-form-head {
+  font-family: Barlow !important;
+  font-style: bold !important;
+  font-weight: 600 !important;
+  font-size: 23px !important;
+  letter-spacing: -0.07em !important;
+  color: black !important;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-image: url("./images/blacktexture.jpg");
 }
 
 .loginCont {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* border: 2px solid orange; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../../images/blacktexture.jpg');
+  min-height: 100vh;
+  /* border: 2px solid orange; */
 }
 
-
 .logo {
-    /* border: 2px solid pink; */
-    align-items: center;
+  /* border: 2px solid pink; */
+  align-items: center;
 }
 
 .okta-sign-in-header.auth-header {
-    display: none !important;
+  display: none !important;
 }
 
 #okta-sign-in.auth-container .button-primary {
-    background: transparent;
-    background-color: #FF511E !important;
+  background: transparent;
+  background-color: #ff511e !important;
 }
