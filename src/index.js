@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -21,9 +21,8 @@ import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import ManageTrip from './components/pages/ManageTrip/ManageTrip';
-import expandedPageTest from './components/pages/ExpandedPage/ExpandedPage';
+import ExpandedPage from './components/pages/ExpandedPage/ExpandedPage';
 import { Trips } from './components/pages/Trips';
-
 
 ReactDOM.render(
   <Router>
@@ -35,6 +34,9 @@ ReactDOM.render(
 );
 
 function App() {
+  /////State for expanded Page
+  const [tripInfoExpandedPage, setTripInfoExpandedPage] = useState('');
+
   // The reason to declare App this way is so that we can use any helper functions we'd need for business logic, in our case auth.
   // React Router has a nifty useHistory hook we can use at this level to ensure we have security around our routes.
   const history = useHistory();
@@ -49,16 +51,25 @@ function App() {
     <Security {...config} onAuthRequired={authHandler}>
       <Switch>
         <Route path="/welcome" component={WelcomePage} />
-        <Route path="/expandedPageTest" component={expandedPageTest} />
+
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
 
-
-        
-
-        <Route path="/createTrip" component={RenderPinnedPage} />
-        <Route path="/manage-trip" component={ManageTrip} />
-        <Route path="/expandedPageTest" component={expandedPageTest} />
+        {/* <Route path="/createTrip" component={RenderPinnedPage} /> */}
+        {/* <Route path="/manage-trip" component={ManageTrip} /> */}
+        <Route path="/manage-trip">
+          <ManageTrip
+            tripInfoExpandedPage={tripInfoExpandedPage}
+            setTripInfoExpandedPage={setTripInfoExpandedPage}
+          />
+        </Route>
+        {/* <Route path="/expandedPage" component={ExpandedPage} /> */}
+        <Route path="/expandedPage">
+          <ExpandedPage
+            tripInfoExpandedPage={tripInfoExpandedPage}
+            setTripInfoExpandedPage={setTripInfoExpandedPage}
+          />
+        </Route>
 
         {/* any of the routes you need secured should be registered as SecureRoutes */}
         <SecureRoute

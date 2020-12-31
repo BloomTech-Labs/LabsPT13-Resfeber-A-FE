@@ -4,6 +4,7 @@ import Logo from './Logo.svg';
 import axios from 'axios';
 import Map from './mapscreen.png';
 import Items from './restaurants.png';
+import { Link, Route } from 'react-router-dom';
 
 require('dotenv').config();
 
@@ -11,7 +12,7 @@ require('dotenv').config();
 
 let resObj = [{}];
 
-function ManageTrip() {
+function ManageTrip(props) {
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
 
@@ -22,9 +23,11 @@ function ManageTrip() {
   const handleSubmit = e => {
     e.preventDefault();
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchValue}&key=${process.env.REACT_APP_GOOGLE_KEY}`;
-
+    var myHeaders = new Headers();
+    myHeaders.append('Access-Control-Allow-Origin', '*');
     var requestOptions = {
       method: 'GET',
+      headers: myHeaders,
       redirect: 'follow',
     };
     // console.log('THE URL GOING TO API: ', url);
@@ -84,8 +87,12 @@ function ManageTrip() {
               {searchResults.map((val, index) => (
                 <div className="itemCard">
                   <div className="rightBox">
-                    <p val={val} key={val.id}>
-                      {val.name}
+                    <p
+                      onClick={() => props.setTripInfoExpandedPage(val)}
+                      val={val}
+                      key={val.id}
+                    >
+                      <Link to="/expandedPage"> {val.name} </Link>
                     </p>
                     <p val={val} key={val.id}>
                       {val.formatted_address}
