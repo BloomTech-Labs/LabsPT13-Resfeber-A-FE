@@ -13,7 +13,7 @@ import {
 import './expanded_page.css';
 import resferber_logo from '../../../images/Logo.png';
 
-const ExpandedPage = () => {
+const ExpandedPage = props => {
   const { Header, Sider, Content } = Layout;
   const [collapsed_toggle, setCollapse_toggle] = useState(false);
   function toggleSlider() {
@@ -23,6 +23,7 @@ const ExpandedPage = () => {
       setCollapse_toggle(true);
     }
   }
+  const [mockStateData] = useState({});
 
   // const ItenaryIcon = props => <Icon component={ItenarySvg} />;
   return (
@@ -74,7 +75,10 @@ const ExpandedPage = () => {
               minHeight: '92vh',
             }}
           >
-            <ContentPart />
+            <ContentPart
+              tripInfoExpandedPage={props.tripInfoExpandedPage}
+              setTripInfoExpandedPage={props.setTripInfoExpandedPage}
+            />
           </Content>
         </Layout>
       </Layout>
