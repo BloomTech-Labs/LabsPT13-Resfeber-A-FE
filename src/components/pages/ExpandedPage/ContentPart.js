@@ -3,8 +3,7 @@ import './content_part.css';
 import CustomCard from './CustomCard';
 import axios from 'axios';
 import { Row, Col, Rate, Spin, Space, Collapse, Image, Carousel } from 'antd';
-import mock_google_maps from '../../../images/mock_google_maps.png';
-import restarantpicsample from '../../../images/restaurantpicsample.png';
+
 import {
   withScriptjs,
   withGoogleMap,

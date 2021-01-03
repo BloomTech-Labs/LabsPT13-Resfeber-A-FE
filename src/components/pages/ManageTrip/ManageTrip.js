@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import './ManageTrip.css';
 import Logo from './Logo.svg';
 import axios from 'axios';
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker,
+} from 'react-google-maps';
+
 import Map from './mapscreen.png';
 import { Link, Route } from 'react-router-dom';
 
@@ -162,7 +169,13 @@ function ManageTrip(props) {
             {tripArray.length > 0 &&
               tripArray.map(item => (
                 <ul>
-                  <li>{item}</li>
+                  <li
+                    onClick={() =>
+                      tripArray.pop(item) && setTripItems(tripArray)
+                    }
+                  >
+                    {item}
+                  </li>
                 </ul>
               ))}
           </div>
