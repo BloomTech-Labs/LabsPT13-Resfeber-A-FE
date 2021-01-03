@@ -124,7 +124,9 @@ function ManageTrip(props) {
                           className="addTripButton"
                           onClick={() =>
                             tripArray.push([
-                              val.types[1]
+                              val.formatted_address.split(',')[1],
+                              ' - ',
+                              val.types[0]
                                 .toUpperCase()
                                 .split('_')
                                 .join(' '),
@@ -173,19 +175,21 @@ function ManageTrip(props) {
           </div>
           <div className="pinned-items">
             <div className="pinned-title">Trip Details:</div>
-            {tripArray.length > 0 &&
-              tripArray.map(item => (
-                <ul>
-                  <li
-                    className="tripItem"
-                    onClick={() =>
-                      tripArray.pop(item) && setTripItems(tripArray)
-                    }
-                  >
-                    {item}
-                  </li>
-                </ul>
-              ))}
+            <div className="tripList">
+              {tripArray.length > 0 &&
+                tripArray.map(item => (
+                  <ul>
+                    <li
+                      className="tripItem"
+                      onClick={() =>
+                        tripArray.pop(item) && setTripItems(tripArray)
+                      }
+                    >
+                      {item}
+                    </li>
+                  </ul>
+                ))}
+            </div>
             <button className="submitTripDetails">Submit Trip Details</button>
           </div>
         </div>
