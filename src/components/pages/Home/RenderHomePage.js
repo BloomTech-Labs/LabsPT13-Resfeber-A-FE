@@ -26,7 +26,7 @@ function RenderHomePage(props) {
         </p>
         <p>
           {/* Added link to test Expanded Page Will delete later */}
-          <Link to="/expandedPageTest">Expanded Page Test</Link>
+          <Link to="/expandedPage">Expanded Page Test</Link>
         </p>
         <p>
           <Button

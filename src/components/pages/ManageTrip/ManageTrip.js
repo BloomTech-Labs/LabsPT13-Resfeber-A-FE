@@ -3,29 +3,29 @@ import './ManageTrip.css';
 import Logo from './Logo.svg';
 import axios from 'axios';
 import Map from './mapscreen.png';
+import { Link, Route } from 'react-router-dom';
 
 require('dotenv').config();
 
 //declaring here so I can use it to get state in the global scope.
 let resObj = [{}];
 
-function ManageTrip() {
+function ManageTrip(props) {
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
 
-  const [tripItems, setTripItems] = useState(['Dinner', 'Hotel', 'Park']);
+  const [tripItems, setTripItems] = useState([]);
   var tripArray = tripItems.map(renderList);
 
   function renderList(item) {
     return item;
   }
 
-  function addName(props) {
-    tripArray.push(props.name);
-    console.log('trip list: ', tripArray);
-    setTripItems(tripArray);
-    return tripItems;
-  }
+  // function addName() {
+  //   console.log("trip list: ", tripArray);
+  //   setTripItems(tripArray)
+  //   return tripItems;
+  // }
 
   //takes in user input from searchbar
   const handleChange = e => {
@@ -113,11 +113,23 @@ function ManageTrip() {
                         {val.formatted_address}
                       </p>
                       <div className="buttonRow">
-                        <button className="addTripButton" onClick={addName}>
+                        <button
+                          className="addTripButton"
+                          onClick={() =>
+                            tripArray.push(val.name) && setTripItems(tripArray)
+                          }
+                          val={val}
+                          key={val.id}
+                        >
                           Add to Trip
                         </button>
-                        <button className="viewDeetsButton">
-                          View Details
+                        <button
+                          className="viewDeetsButton"
+                          onClick={() => props.setTripInfoExpandedPage(val)}
+                          val={val}
+                          key={val.id}
+                        >
+                          <Link to="/expandedPage">View Details</Link>
                         </button>
                       </div>
                     </div>
@@ -147,8 +159,8 @@ function ManageTrip() {
           </div>
           <div className="pinned-items">
             <div className="pinned-title">Trip Details:</div>
-            {tripItems.length > 1 &&
-              tripItems.map(item => (
+            {tripArray.length > 0 &&
+              tripArray.map(item => (
                 <ul>
                   <li>{item}</li>
                 </ul>

@@ -6,7 +6,8 @@
     padding: 1%;
     color: black;
     font-size: large;
-    margin-top: 0%;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
     /* border: 2px pink solid; */
 }
@@ -45,6 +46,8 @@
 .logo-container {
     width: 100%;
     margin: 0;
+    background-color: rgba(0, 0, 0, 0.753);
+    padding: 1%;
 }
 
 .crLogo {
