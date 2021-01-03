@@ -170,6 +170,7 @@ function ManageTrip(props) {
               tripArray.map(item => (
                 <ul>
                   <li
+                    className="tripItem"
                     onClick={() =>
                       tripArray.pop(item) && setTripItems(tripArray)
                     }
@@ -178,6 +179,7 @@ function ManageTrip(props) {
                   </li>
                 </ul>
               ))}
+            <button className="submitTripDetails">Submit Trip Details</button>
           </div>
         </div>
       </div>

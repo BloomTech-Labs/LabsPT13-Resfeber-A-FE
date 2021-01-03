@@ -172,6 +172,22 @@ width: 70%;
     border-radius: 4px;
 }
 
+.submitTripDetails {
+    color: white;
+    background-color:  #f83a00;
+    -webkit-text-stroke: 1px white;
+    border: none;
+    margin: 1%;
+    padding: 1.5%;
+    border-radius: 4px;
+}
+
+.tripItem:hover {
+    text-decoration: line-through;
+    color: #fd6d41f6;
+    font-style: italic;
+}
+
 .itemIcon {
     height: 40px;
     background: transparent no-repeat center;
