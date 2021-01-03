@@ -16,14 +16,13 @@ import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
 import { HomePage } from './components/pages/Home';
 import { ProfileListPage } from './components/pages/ProfileList';
-import { LoginPage } from './components/pages/Login';
+import { LoginPage } from './components/pages/Login/index.js';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import ManageTrip from './components/pages/ManageTrip/ManageTrip';
 import expandedPageTest from './components/pages/ExpandedPage/ExpandedPage';
 import { Trips } from './components/pages/Trips';
-
 
 ReactDOM.render(
   <Router>

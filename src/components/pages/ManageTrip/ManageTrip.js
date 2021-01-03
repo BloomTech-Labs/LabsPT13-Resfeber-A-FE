@@ -13,6 +13,20 @@ function ManageTrip() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
 
+  const [tripItems, setTripItems] = useState(['Dinner', 'Hotel', 'Park']);
+  var tripArray = tripItems.map(renderList);
+
+  function renderList(item) {
+    return item;
+  }
+
+  function addName(props) {
+    tripArray.push(props.name);
+    console.log('trip list: ', tripArray);
+    setTripItems(tripArray);
+    return tripItems;
+  }
+
   //takes in user input from searchbar
   const handleChange = e => {
     setSearchValue(e.target.value);
@@ -23,8 +37,12 @@ function ManageTrip() {
     e.preventDefault();
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchValue}&key=${process.env.REACT_APP_GOOGLE_KEY}`;
 
+    var myHeaders = new Headers();
+    myHeaders.append('Access-Control-Allow-Origin', '*');
+
     var requestOptions = {
       method: 'GET',
+      headers: myHeaders,
       redirect: 'follow',
     };
     // console.log('THE URL GOING TO API: ', url);
@@ -95,7 +113,9 @@ function ManageTrip() {
                         {val.formatted_address}
                       </p>
                       <div className="buttonRow">
-                        <button className="addTripButton">Add to Trip</button>
+                        <button className="addTripButton" onClick={addName}>
+                          Add to Trip
+                        </button>
                         <button className="viewDeetsButton">
                           View Details
                         </button>
@@ -127,13 +147,12 @@ function ManageTrip() {
           </div>
           <div className="pinned-items">
             <div className="pinned-title">Trip Details:</div>
-            <ul>
-              <li>Dinner</li>
-              <li>Hotel</li>
-              <li>Activity</li>
-              <li>Land Mark</li>
-              <li>Activity Day 2</li>
-            </ul>
+            {tripItems.length > 1 &&
+              tripItems.map(item => (
+                <ul>
+                  <li>{item}</li>
+                </ul>
+              ))}
           </div>
         </div>
       </div>
