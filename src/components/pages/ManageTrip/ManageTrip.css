@@ -46,7 +46,11 @@
 .logo-container {
     width: 100%;
     margin: 0;
-    background-color: rgba(0, 0, 0, 0.753);
+    background: rgb(36,36,36);
+    background: -moz-linear-gradient(0deg, rgba(36,36,36,1) 9%, rgba(64,64,64,1) 38%, rgba(74,74,74,1) 51%, rgba(95,95,95,1) 67%, rgba(114,114,114,1) 81%, rgba(130,130,130,1) 100%, rgba(154,154,154,1) 100%, rgba(181,181,181,1) 100%, rgba(213,213,213,1) 100%, rgba(218,218,218,1) 100%, rgba(221,221,221,1) 100%, rgba(231,231,231,1) 100%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(36,36,36,1) 9%, rgba(64,64,64,1) 38%, rgba(74,74,74,1) 51%, rgba(95,95,95,1) 67%, rgba(114,114,114,1) 81%, rgba(130,130,130,1) 100%, rgba(154,154,154,1) 100%, rgba(181,181,181,1) 100%, rgba(213,213,213,1) 100%, rgba(218,218,218,1) 100%, rgba(221,221,221,1) 100%, rgba(231,231,231,1) 100%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(0deg, rgba(36,36,36,1) 9%, rgba(64,64,64,1) 38%, rgba(74,74,74,1) 51%, rgba(95,95,95,1) 67%, rgba(114,114,114,1) 81%, rgba(130,130,130,1) 100%, rgba(154,154,154,1) 100%, rgba(181,181,181,1) 100%, rgba(213,213,213,1) 100%, rgba(218,218,218,1) 100%, rgba(221,221,221,1) 100%, rgba(231,231,231,1) 100%, rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#242424",endColorstr="#ffffff",GradientType=1);
     padding: 1%;
 }
 

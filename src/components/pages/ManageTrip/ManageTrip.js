@@ -123,7 +123,14 @@ function ManageTrip(props) {
                         <button
                           className="addTripButton"
                           onClick={() =>
-                            tripArray.push(val.name) && setTripItems(tripArray)
+                            tripArray.push([
+                              val.types[1]
+                                .toUpperCase()
+                                .split('_')
+                                .join(' '),
+                              ': ',
+                              val.name,
+                            ]) && setTripItems(tripArray)
                           }
                           val={val}
                           key={val.id}
