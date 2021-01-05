@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ManageTrip.css';
 import Logo from './Logo.svg';
 import axios from 'axios';
@@ -19,11 +19,12 @@ let resObj = [{}];
 
 function ManageTrip(props) {
   const [searchValue, setSearchValue] = useState('');
-  const [tripName, setTripName] = useState('');
+  const [tripName, setTripName] = useState('Untitled');
   const [typeName, setTypeName] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
-
   const [tripItems, setTripItems] = useState([]);
+  // const [tripDetails, setTripDetails] = useState([{tripName, tripItems}])
+
   var tripArray = tripItems.map(renderList);
 
   function renderList(item) {
@@ -48,9 +49,37 @@ function ManageTrip(props) {
 
   //deletes trip name
   function clearName() {
-    setTripName('Trip Name Needed!');
+    setTripName('Untitled');
     return tripName;
   }
+
+  //setting state with local storage
+  useEffect(() => {
+    const searchVal = localStorage.getItem('search-value');
+    if (searchVal) {
+      setSearchValue(JSON.parse(searchVal));
+    }
+    const searchRes = localStorage.getItem('search-results');
+    if (searchRes) {
+      setSearchResults(JSON.parse(searchRes));
+    }
+    const tripN = localStorage.getItem('trip-name');
+    if (tripN) {
+      setTripName(JSON.parse(tripN));
+    }
+    const tripThings = localStorage.getItem('trip-items');
+    if (tripThings) {
+      setTripItems(JSON.parse(tripThings));
+    }
+  }, []);
+
+  //local storage use effects
+  useEffect(() => {
+    localStorage.setItem('search-value', JSON.stringify(searchValue));
+    localStorage.setItem('search-results', JSON.stringify(searchResults));
+    localStorage.setItem('trip-name', JSON.stringify(tripName));
+    localStorage.setItem('trip-items', JSON.stringify(tripItems));
+  });
 
   //plugs user search value into the GET call to the google places API
   function handleSubmit(e) {
@@ -130,7 +159,7 @@ function ManageTrip(props) {
                     className="searchBar"
                     type="text"
                     name="Search"
-                    placeholder="Powered by Google"
+                    placeholder="Seafood in Myrtle Beach"
                     value={searchValue}
                     onChange={handleChange}
                   />
