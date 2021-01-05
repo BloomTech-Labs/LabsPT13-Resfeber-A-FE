@@ -23,7 +23,7 @@ function ManageTrip(props) {
   const [typeName, setTypeName] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
   const [tripItems, setTripItems] = useState([]);
-  // const [tripDetails, setTripDetails] = useState([{tripName, tripItems}])
+  const [tripDetails, setTripDetails] = useState([{ tripName, tripItems }]);
 
   var tripArray = tripItems.map(renderList);
 
@@ -53,7 +53,15 @@ function ManageTrip(props) {
     return tripName;
   }
 
-  //setting state with local storage
+  //trip submit sets tripDetails state
+  const handleTripDetailsSubmit = e => {
+    e.preventDefault();
+    setTripDetails([{ tripName, tripItems }]);
+    console.log('trip details state: ', tripDetails);
+    return tripDetails;
+  };
+
+  //setting state with local storage (this runs first so data doesnt get over-written)
   useEffect(() => {
     const searchVal = localStorage.getItem('search-value');
     if (searchVal) {
@@ -258,7 +266,12 @@ function ManageTrip(props) {
                   </ul>
                 ))}
             </div>
-            <button className="submitTripDetails">Submit Trip Details</button>
+            <button
+              className="submitTripDetails"
+              onClick={handleTripDetailsSubmit}
+            >
+              Submit Trip Details
+            </button>
           </div>
         </div>
       </div>
@@ -267,11 +280,3 @@ function ManageTrip(props) {
 }
 
 export default ManageTrip;
-
-{
-  /* <div className="itemCard">
-                <div className="itemContainer">
-                  <img className="items" src={Items} alt="Items" />
-                </div>
-              </div> */
-}
