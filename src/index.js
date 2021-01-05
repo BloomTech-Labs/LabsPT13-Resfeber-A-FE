@@ -11,6 +11,7 @@ import {
 import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
+import { TripProvider } from './components/context/tripBeingEdited';
 import WelcomePage from './components/pages/WelcomePage/WelcomePage';
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
@@ -34,6 +35,7 @@ ReactDOM.render(
 );
 
 function App() {
+  const [trip, setTrip] = useState();
   /////State for expanded Page
   const [tripInfoExpandedPage, setTripInfoExpandedPage] = useState('');
 
@@ -49,40 +51,42 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <Switch>
-        <Route path="/welcome" component={WelcomePage} />
+      <TripProvider value={[trip, setTrip]}>
+        <Switch>
+          <Route path="/welcome" component={WelcomePage} />
 
-        <Route path="/login" component={LoginPage} />
-        <Route path="/implicit/callback" component={LoginCallback} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/implicit/callback" component={LoginCallback} />
 
-        {/* <Route path="/createTrip" component={RenderPinnedPage} /> */}
-        {/* <Route path="/manage-trip" component={ManageTrip} /> */}
-        <Route path="/manage-trip">
-          <ManageTrip
-            tripInfoExpandedPage={tripInfoExpandedPage}
-            setTripInfoExpandedPage={setTripInfoExpandedPage}
+          {/* <Route path="/createTrip" component={RenderPinnedPage} /> */}
+          {/* <Route path="/manage-trip" component={ManageTrip} /> */}
+          <Route path="/manage-trip">
+            <ManageTrip
+              tripInfoExpandedPage={tripInfoExpandedPage}
+              setTripInfoExpandedPage={setTripInfoExpandedPage}
+            />
+          </Route>
+          {/* <Route path="/expandedPage" component={ExpandedPage} /> */}
+          <Route path="/expandedPage">
+            <ExpandedPage
+              tripInfoExpandedPage={tripInfoExpandedPage}
+              setTripInfoExpandedPage={setTripInfoExpandedPage}
+            />
+          </Route>
+
+          {/* any of the routes you need secured should be registered as SecureRoutes */}
+          <SecureRoute
+            path="/"
+            exact
+            component={() => <HomePage LoadingComponent={LoadingComponent} />}
           />
-        </Route>
-        {/* <Route path="/expandedPage" component={ExpandedPage} /> */}
-        <Route path="/expandedPage">
-          <ExpandedPage
-            tripInfoExpandedPage={tripInfoExpandedPage}
-            setTripInfoExpandedPage={setTripInfoExpandedPage}
-          />
-        </Route>
-
-        {/* any of the routes you need secured should be registered as SecureRoutes */}
-        <SecureRoute
-          path="/"
-          exact
-          component={() => <HomePage LoadingComponent={LoadingComponent} />}
-        />
-        <SecureRoute path="/trips" component={Trips} />
-        <SecureRoute path="/example-list" component={ExampleListPage} />
-        <SecureRoute path="/profile-list" component={ProfileListPage} />
-        <SecureRoute path="/datavis" component={ExampleDataViz} />
-        <Route component={NotFoundPage} />
-      </Switch>
+          <SecureRoute path="/trips" component={Trips} />
+          <SecureRoute path="/example-list" component={ExampleListPage} />
+          <SecureRoute path="/profile-list" component={ProfileListPage} />
+          <SecureRoute path="/datavis" component={ExampleDataViz} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </TripProvider>
     </Security>
   );
 }

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { apiGet, apiPost } from '../../../api';
 import { InputGroup, InputGroupAddon, Input, Button, Form } from 'reactstrap';
-
 import TripCard from './TripCard';
 
 function Trips() {
