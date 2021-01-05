@@ -19,6 +19,8 @@ let resObj = [{}];
 
 function ManageTrip(props) {
   const [searchValue, setSearchValue] = useState('');
+  const [tripName, setTripName] = useState('');
+  const [typeName, setTypeName] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
 
   const [tripItems, setTripItems] = useState([]);
@@ -28,19 +30,30 @@ function ManageTrip(props) {
     return item;
   }
 
-  // function addName() {
-  //   console.log("trip list: ", tripArray);
-  //   setTripItems(tripArray)
-  //   return tripItems;
-  // }
-
   //takes in user input from searchbar
   const handleChange = e => {
     setSearchValue(e.target.value);
   };
 
+  //names trip
+  const handleNameSubmit = e => {
+    e.preventDefault();
+    setTripName(typeName);
+    return tripName;
+  };
+
+  const handleNameChange = e => {
+    setTypeName(e.target.value);
+  };
+
+  //deletes trip name
+  function clearName() {
+    setTripName('Trip Name Needed!');
+    return tripName;
+  }
+
   //plugs user search value into the GET call to the google places API
-  const handleSubmit = e => {
+  function handleSubmit(e) {
     e.preventDefault();
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchValue}&key=${process.env.REACT_APP_GOOGLE_KEY}`;
 
@@ -53,7 +66,6 @@ function ManageTrip(props) {
       redirect: 'follow',
     };
     // console.log('THE URL GOING TO API: ', url);
-
     axios
       .get(url, requestOptions)
       .then(response => {
@@ -70,7 +82,7 @@ function ManageTrip(props) {
         setSearchResults(resObj);
       })
       .catch(error => console.log('error', error));
-  };
+  }
 
   //iterating over the response/state object
   Object.values(searchResults).forEach(val => {
@@ -84,24 +96,48 @@ function ManageTrip(props) {
       <div className="search-n-feed">
         <div className="logo-container">
           <img className="crLogo" src={Logo} alt="Logo" />
+          <div className="navGroup">
+            <button className="navButt">
+              <Link to="/">Home</Link>
+            </button>
+            <button className="navButt">
+              <Link to="/trips">My Trips</Link>
+            </button>
+          </div>
         </div>
         <div className="split-box">
           <div className="search-box">
-            <div className="crTitle">Manage Trip: </div>
-            <form className="searchForm" onSubmit={handleSubmit}>
-              <label className="search">
-                Search:
-                <input
-                  className="searchBar"
-                  type="text"
-                  name="Search"
-                  placeholder="Powered by Google"
-                  value={searchValue}
-                  onChange={handleChange}
-                />
-              </label>
-              <input className="submit" type="submit" value="Submit" />
-            </form>
+            <div className="forms">
+              <div className="crTitle">Manage Trip: </div>
+              <form className="nameTrip" onSubmit={handleNameSubmit}>
+                <label className="tripTitle">
+                  Trip Name:
+                  <input
+                    className="searchBar2"
+                    type="text"
+                    name="Name"
+                    placeholder="Beach Trip"
+                    value={typeName}
+                    onChange={handleNameChange}
+                  />
+                </label>
+                <input className="submitName" type="submit" value="Submit" />
+              </form>
+              <form className="searchForm" onSubmit={handleSubmit}>
+                <label className="search">
+                  Search:
+                  <input
+                    className="searchBar"
+                    type="text"
+                    name="Search"
+                    placeholder="Powered by Google"
+                    value={searchValue}
+                    onChange={handleChange}
+                  />
+                </label>
+                <input className="submit" type="submit" value="Submit" />
+              </form>
+            </div>
             <div className="mapContainer">
               <img className="map" src={Map} alt="Map" />
             </div>
@@ -175,6 +211,9 @@ function ManageTrip(props) {
           </div>
           <div className="pinned-items">
             <div className="pinned-title">Trip Details:</div>
+            <div className="trip-name" onClick={clearName}>
+              {tripName}
+            </div>
             <div className="tripList">
               {tripArray.length > 0 &&
                 tripArray.map(item => (
