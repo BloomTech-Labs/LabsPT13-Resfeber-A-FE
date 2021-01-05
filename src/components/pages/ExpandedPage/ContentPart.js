@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './content_part.css';
 import CustomCard from './CustomCard';
 import axios from 'axios';
-import { Row, Col, Rate, Spin, Space, Collapse, Image, Carousel } from 'antd';
+import { Row, Col, Rate, Spin, Space, Collapse, Image, Button } from 'antd';
 
 import {
   withScriptjs,
@@ -95,15 +96,15 @@ const ContentPart = props => {
                 {props.tripInfoExpandedPage.name}
               </h1>
             </Row>
-            <Row>
+            {/* <Row>
               <Input
                 style={{ width: '50%' }}
                 size="large"
                 placeholder="Search"
                 prefix={<ArrowRightOutlined />}
               />
-            </Row>
-            <Row style={{ paddingTop: '6vh' }}>
+            </Row> */}
+            <Row style={{ paddingTop: '3vh' }}>
               {placeDetails.photos === undefined
                 ? ''
                 : placeDetails.photos.map((pht, idx) => {
@@ -136,15 +137,6 @@ const ContentPart = props => {
                   defaultValue={props.tripInfoExpandedPage.rating}
                 />{' '}
               </h5>
-
-              {/* <CustomCard />
-            <CustomCard />
-            <CustomCard />
-            <CustomCard />
-            <CustomCard />
-            <CustomCard />
-            <CustomCard />
-            <CustomCard /> */}
             </Row>
 
             <Row>
@@ -155,21 +147,21 @@ const ContentPart = props => {
                 )}
               </h6>
             </Row>
-            <Row style={{ paddingTop: '1vh' }}>
-              <h5>Address: {props.tripInfoExpandedPage.formatted_address}</h5>
-            </Row>
+
             {props.tripInfoExpandedPage.opening_hours === undefined ? (
               ''
             ) : props.tripInfoExpandedPage.opening_hours.open_now ? (
-              <Row>
+              <Row style={{ paddingTop: '1vh' }}>
                 <h5 style={{ color: '#25D366' }}>OPEN</h5>
               </Row>
             ) : (
-              <Row>
+              <Row style={{ paddingTop: '1vh' }}>
                 <h5 style={{ color: 'red' }}>CLOSED</h5>
               </Row>
             )}
-
+            <Row>
+              <h5>Address: {props.tripInfoExpandedPage.formatted_address}</h5>
+            </Row>
             <Row>
               <h5>
                 Phone:{' '}
@@ -196,6 +188,20 @@ const ContentPart = props => {
                   </Panel>
                 </Collapse>
               )}
+            </Row>
+            <Row>
+              <Link to="/manage-trip">
+                <Button
+                  // style={{
+                  //   marginTop: '2px',
+                  //   background: '#FF5523',
+                  //   color: 'white',
+                  // }}
+                  className="buttonAddTrip"
+                >
+                  Add to Trip
+                </Button>
+              </Link>
             </Row>
           </Col>
         ) : (
