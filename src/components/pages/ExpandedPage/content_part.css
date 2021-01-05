@@ -28,3 +28,18 @@ h5 {
 .ant-collapse-content {
   font-size: medium;
 }
+.buttonAddTrip {
+  font-size: medium;
+  margin-top: 6px;
+  color: white;
+  background: #ff511e;
+  border-radius: 8px;
+  border: none;
+  width: 120px;
+  height: 35px;
+  margin-bottom: 30px;
+}
+.buttonAddTrip:hover {
+  background-color: #25d366;
+  color: white;
+}

@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { apiDelete, apiPut } from '../../../api';
 import { Button, Card, CardBody, CardHeader, Form, Input } from 'reactstrap';
+import TripContext from '../../context/tripBeingEdited';
 
 function TripCard(props) {
   const [editMode, setEditMode] = useState(false);
   const history = useHistory();
+
+  const [trip, setTrip] = useContext(TripContext);
+
   const deleteTrip = event => {
     event.preventDefault();
     apiDelete(props.authState, '/trips', {
@@ -38,7 +42,8 @@ function TripCard(props) {
   };
 
   const goToManageTrips = () => {
-    history.push('/createTrip');
+    setTrip({ name: props.trip_name, id: props.id });
+    history.push('/manage-trip');
   };
 
   return (
