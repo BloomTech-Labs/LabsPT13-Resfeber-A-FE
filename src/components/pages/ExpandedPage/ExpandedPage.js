@@ -42,19 +42,20 @@ const ExpandedPage = props => {
               <img src={resferber_logo} />{' '}
             </Link>
           </div>
-          <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1" icon={<CompassOutlined />}>
+          <Menu theme="light" mode="inline" defaultSelectedKeys={['2']}>
+            <Menu.Item key="1" icon={<CarOutlined />}>
+              <Link to="/manage-trip">Manage Trip</Link>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<CompassOutlined />}>
               Explore
             </Menu.Item>
-            <Menu.Item key="2" icon={<HeartOutlined />}>
+            {/* <Menu.Item key="2" icon={<HeartOutlined />}>
               Favorites
             </Menu.Item>
             <Menu.Item key="3" icon={<InboxOutlined />}>
               Itinerary
             </Menu.Item>
-            <Menu.Item key="4" icon={<CarOutlined />}>
-              Transport
-            </Menu.Item>
+             */}
           </Menu>
         </Sider>
         <Layout className="site-layout">
