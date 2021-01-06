@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ManageTrip.css';
 import Logo from './Logo.svg';
 import axios from 'axios';
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker,
-} from 'react-google-maps';
+import Map from './Map';
 
-import Map from './mapscreen.png';
 import { Link, Route } from 'react-router-dom';
 
 require('dotenv').config();
@@ -19,28 +13,78 @@ let resObj = [{}];
 
 function ManageTrip(props) {
   const [searchValue, setSearchValue] = useState('');
+  const [tripName, setTripName] = useState('Untitled');
+  const [typeName, setTypeName] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
-
   const [tripItems, setTripItems] = useState([]);
+  const [tripDetails, setTripDetails] = useState([{ tripName, tripItems }]);
+
   var tripArray = tripItems.map(renderList);
 
   function renderList(item) {
     return item;
   }
 
-  // function addName() {
-  //   console.log("trip list: ", tripArray);
-  //   setTripItems(tripArray)
-  //   return tripItems;
-  // }
-
   //takes in user input from searchbar
   const handleChange = e => {
     setSearchValue(e.target.value);
   };
 
+  //names trip
+  const handleNameSubmit = e => {
+    e.preventDefault();
+    setTripName(typeName);
+    return tripName;
+  };
+
+  const handleNameChange = e => {
+    setTypeName(e.target.value);
+  };
+
+  //deletes trip name
+  function clearName() {
+    setTripName('Untitled');
+    return tripName;
+  }
+
+  //trip submit sets tripDetails state
+  const handleTripDetailsSubmit = e => {
+    e.preventDefault();
+    setTripDetails([{ tripName, tripItems }]);
+    console.log('trip details state: ', tripDetails);
+    return tripDetails;
+  };
+
+  //setting state with local storage (this runs first so data doesnt get over-written)
+  useEffect(() => {
+    const searchVal = localStorage.getItem('search-value');
+    if (searchVal) {
+      setSearchValue(JSON.parse(searchVal));
+    }
+    const searchRes = localStorage.getItem('search-results');
+    if (searchRes) {
+      setSearchResults(JSON.parse(searchRes));
+    }
+    const tripN = localStorage.getItem('trip-name');
+    if (tripN) {
+      setTripName(JSON.parse(tripN));
+    }
+    const tripThings = localStorage.getItem('trip-items');
+    if (tripThings) {
+      setTripItems(JSON.parse(tripThings));
+    }
+  }, []);
+
+  //local storage use effects
+  useEffect(() => {
+    localStorage.setItem('search-value', JSON.stringify(searchValue));
+    localStorage.setItem('search-results', JSON.stringify(searchResults));
+    localStorage.setItem('trip-name', JSON.stringify(tripName));
+    localStorage.setItem('trip-items', JSON.stringify(tripItems));
+  });
+
   //plugs user search value into the GET call to the google places API
-  const handleSubmit = e => {
+  function handleSubmit(e) {
     e.preventDefault();
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchValue}&key=${process.env.REACT_APP_GOOGLE_KEY}`;
 
@@ -53,7 +97,6 @@ function ManageTrip(props) {
       redirect: 'follow',
     };
     // console.log('THE URL GOING TO API: ', url);
-
     axios
       .get(url, requestOptions)
       .then(response => {
@@ -70,7 +113,7 @@ function ManageTrip(props) {
         setSearchResults(resObj);
       })
       .catch(error => console.log('error', error));
-  };
+  }
 
   //iterating over the response/state object
   Object.values(searchResults).forEach(val => {
@@ -84,28 +127,52 @@ function ManageTrip(props) {
       <div className="search-n-feed">
         <div className="logo-container">
           <img className="crLogo" src={Logo} alt="Logo" />
+          <div className="navGroup">
+            <button className="navButt">
+              <Link to="/">Home</Link>
+            </button>
+            <button className="navButt">
+              <Link to="/trips">My Trips</Link>
+            </button>
+          </div>
         </div>
         <div className="split-box">
           <div className="search-box">
-            <div className="crTitle">Manage Trip: </div>
-            <form className="searchForm" onSubmit={handleSubmit}>
-              <label className="search">
-                Search:
-                <input
-                  className="searchBar"
-                  type="text"
-                  name="Search"
-                  placeholder="Powered by Google"
-                  value={searchValue}
-                  onChange={handleChange}
-                />
-              </label>
-              <input className="submit" type="submit" value="Submit" />
-            </form>
-            <div className="mapContainer">
-              <img className="map" src={Map} alt="Map" />
+            <div className="forms">
+              <div className="crTitle">Manage Trip: </div>
+              <form className="nameTrip" onSubmit={handleNameSubmit}>
+                <label className="tripTitle">
+                  Trip Name:
+                  <input
+                    className="searchBar2"
+                    type="text"
+                    name="Name"
+                    placeholder="Beach Trip"
+                    value={typeName}
+                    onChange={handleNameChange}
+                  />
+                </label>
+                <input className="submitName" type="submit" value="Submit" />
+              </form>
+              <form className="searchForm" onSubmit={handleSubmit}>
+                <label className="search">
+                  Search:
+                  <input
+                    className="searchBar"
+                    type="text"
+                    name="Search"
+                    placeholder="Seafood in Myrtle Beach"
+                    value={searchValue}
+                    onChange={handleChange}
+                  />
+                </label>
+                <input className="submit" type="submit" value="Submit" />
+              </form>
             </div>
-            <div className="results">Results: {searchValue}</div>
+            <div className="mapContainer">
+              <Map />
+            </div>
+            <div className="results">Searching for: {searchValue}</div>
 
             <div className="resultsFill">
               {/* conditonal rendering to prevent empty item card from rendering when there is no search value */}
@@ -175,6 +242,9 @@ function ManageTrip(props) {
           </div>
           <div className="pinned-items">
             <div className="pinned-title">Trip Details:</div>
+            <div className="trip-name" onClick={clearName}>
+              {tripName}
+            </div>
             <div className="tripList">
               {tripArray.length > 0 &&
                 tripArray.map(item => (
@@ -190,7 +260,12 @@ function ManageTrip(props) {
                   </ul>
                 ))}
             </div>
-            <button className="submitTripDetails">Submit Trip Details</button>
+            <button
+              className="submitTripDetails"
+              onClick={handleTripDetailsSubmit}
+            >
+              Submit Trip Details
+            </button>
           </div>
         </div>
       </div>
@@ -199,11 +274,3 @@ function ManageTrip(props) {
 }
 
 export default ManageTrip;
-
-{
-  /* <div className="itemCard">
-                <div className="itemContainer">
-                  <img className="items" src={Items} alt="Items" />
-                </div>
-              </div> */
-}
