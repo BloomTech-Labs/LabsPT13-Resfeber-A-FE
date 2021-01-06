@@ -3,6 +3,8 @@ import './ManageTrip.css';
 import Logo from './Logo.svg';
 import axios from 'axios';
 import Map from './Map';
+import { Row } from 'antd';
+import useGeoLocation from './useGeoLocation';
 
 import { Link, Route } from 'react-router-dom';
 
@@ -53,7 +55,18 @@ function ManageTrip(props) {
     setTripDetails([{ tripName, tripItems }]);
     console.log('trip details state: ', tripDetails);
     return tripDetails;
+
+    //POST request to back end
   };
+
+  //removes item from trip details
+  function handleRemove() {
+    tripItems.map((item, index) =>
+      console.log(index + ' = ' + item + ' = ' + tripItems[index])
+    );
+    console.log('trip item index: ', tripArray.this);
+    console.log('tripArray: ', tripArray, 'tripItems: ', tripItems);
+  }
 
   //setting state with local storage (this runs first so data doesnt get over-written)
   useEffect(() => {
@@ -170,6 +183,7 @@ function ManageTrip(props) {
               </form>
             </div>
             <div className="mapContainer">
+              {/* Current Location: {crntLocation}  */}
               <Map />
             </div>
             <div className="results">Searching for: {searchValue}</div>
@@ -248,16 +262,22 @@ function ManageTrip(props) {
             <div className="tripList">
               {tripArray.length > 0 &&
                 tripArray.map(item => (
-                  <ul>
-                    <li
-                      className="tripItem"
-                      onClick={() =>
-                        tripArray.pop(item) && setTripItems(tripArray)
-                      }
-                    >
-                      {item}
-                    </li>
-                  </ul>
+                  <div
+                    className="tripItem"
+                    // onClick={handleClear(item)}
+                    onClick={() => {
+                      item.splice(0, item.length);
+                      setTripItems(tripArray);
+                      console.log(
+                        'TripItems after deleting: ',
+                        tripArray,
+                        'trip items: ',
+                        tripItems
+                      );
+                    }}
+                  >
+                    {item}
+                  </div>
                 ))}
             </div>
             <button

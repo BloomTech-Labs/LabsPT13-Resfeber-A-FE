@@ -267,6 +267,12 @@ color: white;
     font-style: italic;
 }
 
+.tripItem {
+padding-left: 5%;
+padding-right: 5%;
+margin-top: 6%;
+}
+
 .itemIcon {
     height: 40px;
     background: transparent no-repeat center;
