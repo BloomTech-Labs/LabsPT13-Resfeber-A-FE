@@ -99,7 +99,7 @@ function Trips() {
                   />
                 );
               })
-            : null}
+            : <h1>Loading Trips</h1>}
         </div>
         <Form onSubmit={createTrip}>
           <InputGroup style={{ maxWidth: '30rem', margin: '1.5rem auto' }}>

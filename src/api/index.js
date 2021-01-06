@@ -41,7 +41,7 @@ const apiAuthGet = authHeader => {
 //these custom api methods should make using our backend easier by standardizing the inputs
 
 const apiGet = (authState, url, payload = null) => {
-  console.log(payload, `${process.env.REACT_APP_API_URI}${url}`);
+  //console.log(payload, `${process.env.REACT_APP_API_URI}${url}`);
   const config = {
     headers: getAuthHeader(authState),
   };
@@ -64,7 +64,7 @@ const apiPost = (authState, url, payload = null) => {
 };
 
 const apiPut = (authState, url, payload = null) => {
-  console.log('apiPut:', payload, `${process.env.REACT_APP_API_URI}/${url}`);
+  //console.log('apiPut:', payload, `${process.env.REACT_APP_API_URI}/${url}`);
   const body = {
     ...payload,
   };
