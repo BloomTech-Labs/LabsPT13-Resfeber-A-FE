@@ -2,14 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './ManageTrip.css';
 import Logo from './Logo.svg';
 import axios from 'axios';
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker,
-} from 'react-google-maps';
+import Map from './Map';
 
-import Map from './mapscreen.png';
 import { Link, Route } from 'react-router-dom';
 
 require('dotenv').config();
@@ -176,9 +170,9 @@ function ManageTrip(props) {
               </form>
             </div>
             <div className="mapContainer">
-              <img className="map" src={Map} alt="Map" />
+              <Map />
             </div>
-            <div className="results">Results: {searchValue}</div>
+            <div className="results">Searching for: {searchValue}</div>
 
             <div className="resultsFill">
               {/* conditonal rendering to prevent empty item card from rendering when there is no search value */}
