@@ -102,7 +102,7 @@ function ManageTrip(props) {
       .then(response => {
         resObj = response.data.results;
         resObj.map(item => {
-          console.log('item ', item);
+          // console.log('item ', item);
         });
         // console.log(
         //   'the ReSuLtS: ',

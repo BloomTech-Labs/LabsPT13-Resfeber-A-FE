@@ -56,7 +56,7 @@ const ContentPart = props => {
       ': ',
       props.tripInfoExpandedPage.name
     );
-    //console.log('parse arr', parsedArr);
+    // console.log('parse arr', parsedArr);
     tripThings.push(parsedArr);
     localStorage.setItem('trip-items', JSON.stringify(tripThings));
     // console.log('NEW local storage', tripThings);
@@ -65,7 +65,7 @@ const ContentPart = props => {
 
   // console.log('local storage', tripThings);
 
-  // console.log('STATE: ', props.tripInfoExpandedPage);
+  console.log('STATE: ', props.tripInfoExpandedPage.place_id);
   // console.log('STATE2: ', coordinates.latMaps, coordinates.lngMaps);
   const MapWithAMarker = withScriptjs(
     withGoogleMap(props => (
