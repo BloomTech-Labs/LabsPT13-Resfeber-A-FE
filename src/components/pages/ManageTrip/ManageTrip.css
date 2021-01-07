@@ -267,6 +267,10 @@ color: white;
     font-style: italic;
 }
 
+a.submitText {
+    color: white;
+}
+
 .tripItem {
 padding-left: 5%;
 padding-right: 5%;

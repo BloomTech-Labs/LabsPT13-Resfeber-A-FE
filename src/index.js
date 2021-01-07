@@ -75,15 +75,15 @@ function App() {
           </Route>
 
           {/* any of the routes you need secured should be registered as SecureRoutes */}
-          <SecureRoute
+          <Route
             path="/"
             exact
             component={() => <HomePage LoadingComponent={LoadingComponent} />}
           />
-          <SecureRoute path="/trips" component={Trips} />
-          <SecureRoute path="/example-list" component={ExampleListPage} />
-          <SecureRoute path="/profile-list" component={ProfileListPage} />
-          <SecureRoute path="/datavis" component={ExampleDataViz} />
+          <Route path="/trips" component={Trips} />
+          <Route path="/example-list" component={ExampleListPage} />
+          <Route path="/profile-list" component={ProfileListPage} />
+          <Route path="/datavis" component={ExampleDataViz} />
           <Route component={NotFoundPage} />
         </Switch>
       </TripProvider>
