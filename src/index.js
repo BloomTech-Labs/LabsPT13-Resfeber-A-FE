@@ -60,19 +60,19 @@ function App() {
 
           {/* <Route path="/createTrip" component={RenderPinnedPage} /> */}
           {/* <Route path="/manage-trip" component={ManageTrip} /> */}
-          <Route path="/manage-trip">
+          <SecureRoute path="/manage-trip">
             <ManageTrip
               tripInfoExpandedPage={tripInfoExpandedPage}
               setTripInfoExpandedPage={setTripInfoExpandedPage}
             />
-          </Route>
+          </SecureRoute>
           {/* <Route path="/expandedPage" component={ExpandedPage} /> */}
-          <Route path="/expandedPage">
+          <SecureRoute path="/expandedPage">
             <ExpandedPage
               tripInfoExpandedPage={tripInfoExpandedPage}
               setTripInfoExpandedPage={setTripInfoExpandedPage}
             />
-          </Route>
+          </SecureRoute>
 
           {/* any of the routes you need secured should be registered as SecureRoutes */}
           <Route
@@ -80,10 +80,10 @@ function App() {
             exact
             component={() => <HomePage LoadingComponent={LoadingComponent} />}
           />
-          <Route path="/trips" component={Trips} />
-          <Route path="/example-list" component={ExampleListPage} />
-          <Route path="/profile-list" component={ProfileListPage} />
-          <Route path="/datavis" component={ExampleDataViz} />
+          <SecureRoute path="/trips" component={Trips} />
+          <SecureRoute path="/example-list" component={ExampleListPage} />
+          <SecureRoute path="/profile-list" component={ProfileListPage} />
+          <SecureRoute path="/datavis" component={ExampleDataViz} />
           <Route component={NotFoundPage} />
         </Switch>
       </TripProvider>
