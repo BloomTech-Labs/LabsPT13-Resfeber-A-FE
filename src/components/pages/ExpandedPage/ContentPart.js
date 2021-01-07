@@ -35,7 +35,6 @@ const ContentPart = props => {
           `https://maps.googleapis.com/maps/api/place/details/json?place_id=${props.tripInfoExpandedPage.place_id}&fields=formatted_phone_number,opening_hours,photos,price_level,types&key=${process.env.REACT_APP_GOOGLE_KEY}`
         )
         .then(res => {
-          console.log('AXIOS CALL', res);
           setPlaceDetails(res.data.result);
           setApiStatus(true);
         })
@@ -44,8 +43,29 @@ const ContentPart = props => {
         });
     }, 2000);
   }, []);
+  var parsedArr = [];
+  const tripThings = JSON.parse(localStorage.getItem('trip-items'));
+  const placeParse = () => {
+    parsedArr.push(
+      props.tripInfoExpandedPage.formatted_address.split(',')[1],
+      ' - ',
+      props.tripInfoExpandedPage.types[0]
+        .toUpperCase()
+        .split('_')
+        .join(' '),
+      ': ',
+      props.tripInfoExpandedPage.name
+    );
+    //console.log('parse arr', parsedArr);
+    tripThings.push(parsedArr);
+    localStorage.setItem('trip-items', JSON.stringify(tripThings));
+    // console.log('NEW local storage', tripThings);
+    // console.log('PARSED ARR', parsedArr);
+  };
 
-  // console.log('STATE: ', placeDetails);
+  // console.log('local storage', tripThings);
+
+  // console.log('STATE: ', props.tripInfoExpandedPage);
   // console.log('STATE2: ', coordinates.latMaps, coordinates.lngMaps);
   const MapWithAMarker = withScriptjs(
     withGoogleMap(props => (
@@ -191,14 +211,7 @@ const ContentPart = props => {
             </Row>
             <Row>
               <Link to="/manage-trip">
-                <Button
-                  // style={{
-                  //   marginTop: '2px',
-                  //   background: '#FF5523',
-                  //   color: 'white',
-                  // }}
-                  className="buttonAddTrip"
-                >
+                <Button onClick={() => placeParse()} className="buttonAddTrip">
                   Add to Trip
                 </Button>
               </Link>
