@@ -14,7 +14,7 @@ require('dotenv').config();
 
 //declaring here so I can use it to get state in the global scope.
 let resObj = [{}];
-let cooords = {};
+let cooords = [{}];
 let tripIt = {};
 let itemDelete = {};
 let tripItemStr = [];
@@ -62,10 +62,11 @@ function ManageTrip(props) {
               itemDeets = [{}];
               savedItems = data.data;
               itemDeets = savedItems;
-              // console.log("*******saved items obj: ", savedItems);
-              savedItems.forEach(e => {
-                tripArray.push(e.item_name);
-              });
+              return savedItems;
+            });
+            // console.log("*******saved items obj: ", savedItems);
+            savedItems.forEach(e => {
+              tripArray.push(e.item_name);
             });
 
             setItemDetails(itemDeets);
@@ -150,13 +151,14 @@ function ManageTrip(props) {
           resObj
         );
         setSearchResults(resObj);
-        // console.log("*****RES OBJ: ", resObj);
-        Object.values(resObj).forEach(val => {
-          var geo = val.geometry;
-          console.log('**** Search result geometry: ', geo);
+        searchResults.map(item => {
+          var tempData = [];
+          for (var index = 0; index < item.geometry.length; index++) {
+            tempData.push(item.geometry);
+          }
+          cooords = tempData;
+          console.log('search results to gget location: ', cooords);
         });
-        setCoords(cooords);
-        console.log('COORDS: ', coords);
       })
       .catch(error => console.log('error', error));
   }
@@ -292,8 +294,8 @@ function ManageTrip(props) {
             <div className="pinned-title">Trip Details:</div>
             <div className="trip-name">{trip ? trip.name : null}</div>
             <div className="tripList">
-              {tripItems.length > 0 &&
-                tripItems.map(item => (
+              {tripArray.length > 0 &&
+                tripArray.map(item => (
                   <div
                     className="tripItem"
                     //removes trip item from trippArray, then sets tripItems to tripArray (unformatted item and without id)

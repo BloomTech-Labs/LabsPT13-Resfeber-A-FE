@@ -13,7 +13,7 @@ function RenderHomePage(props) {
       <div className="list-links">
         <p>Below are some nice links:</p>
         <p>
-          <Link to="/manage-trip">Create Trip</Link>
+          <Link to="/trips">Create Trip</Link>
         </p>
         <p>
           <Link to="/profile-list">Profiles Example</Link>
