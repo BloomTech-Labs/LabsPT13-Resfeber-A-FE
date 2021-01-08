@@ -69,6 +69,7 @@ function ManageTrip(props) {
               tripArray.push(e.item_name);
             });
 
+
             setItemDetails(itemDeets);
             return tripItems, itemDeets, itemDetails;
           });
@@ -85,6 +86,15 @@ function ManageTrip(props) {
       });
     return () => (isSubscribed = false);
   }, [memoAuthService, authState]);
+
+  //trip submit sets tripDetails state
+  const handleTripDetailsSubmit = e => {
+    e.preventDefault();
+    setTripDetails([{ tripName, tripItems }]);
+
+    return tripDetails;
+  };
+
 
   //setting state with local storage (this runs first so data doesnt get over-written)
   useEffect(() => {
@@ -142,14 +152,14 @@ function ManageTrip(props) {
       .then(response => {
         resObj = response.data.results;
         resObj.map(item => {
-          console.log('item ', item);
+          // console.log('item ', item);
         });
-        console.log(
-          'the ReSuLtS: ',
-          response.data.results,
-          'setting resObj SEARCH RESULTS: ',
-          resObj
-        );
+        // console.log(
+        //   'the ReSuLtS: ',
+        //   response.data.results,
+        //   'setting resObj SEARCH RESULTS: ',
+        //   resObj
+        // );
         setSearchResults(resObj);
         searchResults.map(item => {
           var tempData = [];
@@ -165,6 +175,7 @@ function ManageTrip(props) {
 
   //iterating over the response/state object
   Object.values(searchResults).forEach(val => {
+
     // console.log('VAL', val, 'typeVAL Name: ', val.name)
     return val;
   });
@@ -185,6 +196,12 @@ function ManageTrip(props) {
     });
     console.log('Trip Details after sendTriptoBE: ', tripItemStr);
   }
+
+    // console.log('VAL', val, 'typeVAL Name: ', val.name);
+    return val;
+  });
+  // console.log('STATE OUTSIDE: ', searchResults, 'specific: ', searchResults[0]);
+
 
   return (
     <div className="page">

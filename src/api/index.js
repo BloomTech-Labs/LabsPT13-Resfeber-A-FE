@@ -42,12 +42,14 @@ const apiAuthGet = authHeader => {
 
 const apiGet = (authState, url, payload = null) => {
 
+
   console.log(
     'payload form apiGet: ',
     payload,
     'url: ',
     `${process.env.REACT_APP_API_URI}${url}`
   );
+
 
   const config = {
     headers: getAuthHeader(authState),
