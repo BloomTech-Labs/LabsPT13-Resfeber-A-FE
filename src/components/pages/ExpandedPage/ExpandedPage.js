@@ -16,6 +16,7 @@ import resferber_logo from '../../../images/Logo.png';
 const ExpandedPage = props => {
   const { Header, Sider, Content } = Layout;
   const [collapsed_toggle, setCollapse_toggle] = useState(false);
+
   function toggleSlider() {
     if (collapsed_toggle) {
       setCollapse_toggle(false);
