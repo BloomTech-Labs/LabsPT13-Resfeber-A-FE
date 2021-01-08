@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 import './ManageTrip.css';
 import Logo from './Logo.svg';
 import axios from 'axios';
 import Map from './Map';
+import { useOktaAuth } from '@okta/okta-react';
+import { apiGet, apiPost, getAuthHeader, apiDelete } from '../../../api';
+
+import TripContext from '../../context/tripBeingEdited';
 
 import { Link, Route } from 'react-router-dom';
 
@@ -10,16 +14,25 @@ require('dotenv').config();
 
 //declaring here so I can use it to get state in the global scope.
 let resObj = [{}];
+let cooords = [{}];
+let tripIt = {};
+let itemDelete = {};
+let tripItemStr = [];
+var itemDeets = [];
 
 function ManageTrip(props) {
+  const [trip, setTrip] = useContext(TripContext);
+  const { authState, authService } = useOktaAuth();
   const [searchValue, setSearchValue] = useState('');
-  const [tripName, setTripName] = useState('Untitled');
-  const [typeName, setTypeName] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
+  const [itemDetails, setItemDetails] = useState([{}]);
   const [tripItems, setTripItems] = useState([]);
-  const [tripDetails, setTripDetails] = useState([{ tripName, tripItems }]);
+  const [coords, setCoords] = useState([{}]);
+  const [memoAuthService] = useMemo(() => [authService], []);
+  const [userInfo, setUserInfo] = useState(null);
 
   var tripArray = tripItems.map(renderList);
+  var savedItems = [];
 
   function renderList(item) {
     return item;
@@ -30,22 +43,49 @@ function ManageTrip(props) {
     setSearchValue(e.target.value);
   };
 
-  //names trip
-  const handleNameSubmit = e => {
-    e.preventDefault();
-    setTripName(typeName);
-    return tripName;
-  };
+  //gets memoAuth from okta, sets users info to userInfo state
+  useEffect(() => {
+    tripArray = [''];
+    // setTripItems(tripArray)
+    let isSubscribed = true;
+    memoAuthService
+      .getUser()
+      .then(info => {
+        axios
+          .get(
+            `${process.env.REACT_APP_API_URI}/trips/${info.sub}/${trip.id}`,
+            { headers: getAuthHeader(authState) }
+          )
+          .then(data => {
+            console.log('data from memoAuth useEffect', data.data);
+            data.data.forEach(e => {
+              itemDeets = [{}];
+              savedItems = data.data;
+              itemDeets = savedItems;
+              return savedItems;
+            });
+            // console.log("*******saved items obj: ", savedItems);
+            savedItems.forEach(e => {
+              tripArray.push(e.item_name);
+            });
 
-  const handleNameChange = e => {
-    setTypeName(e.target.value);
-  };
 
-  //deletes trip name
-  function clearName() {
-    setTripName('Untitled');
-    return tripName;
-  }
+            setItemDetails(itemDeets);
+            return tripItems, itemDeets, itemDetails;
+          });
+        setTripItems(tripArray);
+        // if user is authenticated we can use the authService to snag some user info.
+        // isSubscribed is a boolean toggle that we're using to clean up our useEffect.
+        if (isSubscribed) {
+          setUserInfo(info);
+        }
+      })
+      .catch(err => {
+        isSubscribed = false;
+        return setUserInfo(null);
+      });
+    return () => (isSubscribed = false);
+  }, [memoAuthService, authState]);
 
   //trip submit sets tripDetails state
   const handleTripDetailsSubmit = e => {
@@ -54,6 +94,7 @@ function ManageTrip(props) {
 
     return tripDetails;
   };
+
 
   //setting state with local storage (this runs first so data doesnt get over-written)
   useEffect(() => {
@@ -65,10 +106,10 @@ function ManageTrip(props) {
     if (searchRes) {
       setSearchResults(JSON.parse(searchRes));
     }
-    const tripN = localStorage.getItem('trip-name');
-    if (tripN) {
-      setTripName(JSON.parse(tripN));
-    }
+    // const tripN = localStorage.getItem('trip-name');
+    // if (tripN) {
+    //   setTripName(JSON.parse(tripN));
+    // }
     const tripThings = localStorage.getItem('trip-items');
     if (tripThings) {
       setTripItems(JSON.parse(tripThings));
@@ -79,12 +120,21 @@ function ManageTrip(props) {
   useEffect(() => {
     localStorage.setItem('search-value', JSON.stringify(searchValue));
     localStorage.setItem('search-results', JSON.stringify(searchResults));
-    localStorage.setItem('trip-name', JSON.stringify(tripName));
-    localStorage.setItem('trip-items', JSON.stringify(tripItems));
+    // localStorage.setItem('trip-name', JSON.stringify(tripName));
+    localStorage.setItem('trip-items', JSON.stringify(savedItems));
   });
 
   //plugs user search value into the GET call to the google places API
   function handleSubmit(e) {
+    console.log(
+      'from memo UseEff fro each Arrays : item deets: OUTSIDE',
+      itemDeets,
+      'in state: ',
+      itemDetails,
+      'trip items state: ',
+      tripItems
+    );
+    cooords = {};
     e.preventDefault();
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchValue}&key=${process.env.REACT_APP_GOOGLE_KEY}`;
 
@@ -111,16 +161,47 @@ function ManageTrip(props) {
         //   resObj
         // );
         setSearchResults(resObj);
+        searchResults.map(item => {
+          var tempData = [];
+          for (var index = 0; index < item.geometry.length; index++) {
+            tempData.push(item.geometry);
+          }
+          cooords = tempData;
+          console.log('search results to gget location: ', cooords);
+        });
       })
       .catch(error => console.log('error', error));
   }
 
   //iterating over the response/state object
   Object.values(searchResults).forEach(val => {
+
+    // console.log('VAL', val, 'typeVAL Name: ', val.name)
+    return val;
+  });
+
+  //POST request to BE
+  function sendTriptoBE() {
+    itemDetails.forEach(e => {
+      itemDelete = { item_id: e.id };
+      console.log('itemDelete: ', itemDelete, 'e id', e.id);
+      apiDelete(authState, '/items', itemDelete);
+      console.log('itemDelete after api call : ', itemDelete);
+    });
+    console.log('deleted item details', itemDetails);
+    tripItemStr.forEach(e => {
+      tripIt = { user_id: userInfo.sub, item_name: e, trip_id: trip.id };
+      console.log('tripIt: ', tripIt, 'e to string after tripIt: ', e);
+      apiPost(authState, '/items', tripIt);
+    });
+    console.log('Trip Details after sendTriptoBE: ', tripItemStr);
+  }
+
     // console.log('VAL', val, 'typeVAL Name: ', val.name);
     return val;
   });
   // console.log('STATE OUTSIDE: ', searchResults, 'specific: ', searchResults[0]);
+
 
   return (
     <div className="page">
@@ -140,20 +221,6 @@ function ManageTrip(props) {
           <div className="search-box">
             <div className="forms">
               <div className="crTitle">Manage Trip: </div>
-              <form className="nameTrip" onSubmit={handleNameSubmit}>
-                <label className="tripTitle">
-                  Trip Name:
-                  <input
-                    className="searchBar2"
-                    type="text"
-                    name="Name"
-                    placeholder="Beach Trip"
-                    value={typeName}
-                    onChange={handleNameChange}
-                  />
-                </label>
-                <input className="submitName" type="submit" value="Submit" />
-              </form>
               <form className="searchForm" onSubmit={handleSubmit}>
                 <label className="search">
                   Search:
@@ -242,29 +309,45 @@ function ManageTrip(props) {
           </div>
           <div className="pinned-items">
             <div className="pinned-title">Trip Details:</div>
-            <div className="trip-name" onClick={clearName}>
-              {tripName}
-            </div>
+            <div className="trip-name">{trip ? trip.name : null}</div>
             <div className="tripList">
               {tripArray.length > 0 &&
                 tripArray.map(item => (
-                  <ul>
-                    <li
-                      className="tripItem"
-                      onClick={() =>
-                        tripArray.pop(item) && setTripItems(tripArray)
-                      }
-                    >
-                      {item}
-                    </li>
-                  </ul>
+                  <div
+                    className="tripItem"
+                    //removes trip item from trippArray, then sets tripItems to tripArray (unformatted item and without id)
+                    onClick={() => {
+                      var itemInd = tripArray.indexOf(item);
+                      tripArray.splice(itemInd, 1);
+                      setTripItems(tripArray);
+                      console.log('tripItems after click: ', tripArray);
+                    }}
+                  >
+                    {item}
+                  </div>
                 ))}
             </div>
             <button
               className="submitTripDetails"
-              onClick={handleTripDetailsSubmit}
+              onMouseEnter={() => {
+                tripItemStr = [];
+                console.log('empty tripitemstr: ', tripItemStr);
+                tripItems.forEach(e => {
+                  var stringE = e;
+                  var ele = stringE.toString();
+                  var elem = ele.replace(/,/g, ' ');
+                  console.log(' e to string after replace: ', elem);
+                  tripItemStr.push(elem);
+                  console.log('tripItemStr: ', tripItemStr);
+                  return tripItemStr;
+                });
+                console.log('mouse over trip details: ', tripItemStr);
+              }}
+              onClick={sendTriptoBE}
             >
-              Submit Trip Details
+              <Link to="/trips" className="submitText">
+                Submit Trip Details
+              </Link>
             </button>
           </div>
         </div>
