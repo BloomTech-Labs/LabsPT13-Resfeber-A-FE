@@ -57,18 +57,17 @@ function ManageTrip(props) {
             { headers: getAuthHeader(authState) }
           )
           .then(data => {
-            console.log('data from memoAuth useEffect', data.data);
+            // console.log('data from memoAuth useEffect', data.data);
             data.data.forEach(e => {
               itemDeets = [{}];
               savedItems = data.data;
               itemDeets = savedItems;
               return savedItems;
             });
-            // console.log("*******saved items obj: ", savedItems);
+            // console.log("saved items obj: ", savedItems);
             savedItems.forEach(e => {
               tripArray.push(e.item_name);
             });
-
             setItemDetails(itemDeets);
             return tripItems, itemDeets, itemDetails;
           });
@@ -96,10 +95,6 @@ function ManageTrip(props) {
     if (searchRes) {
       setSearchResults(JSON.parse(searchRes));
     }
-    // const tripN = localStorage.getItem('trip-name');
-    // if (tripN) {
-    //   setTripName(JSON.parse(tripN));
-    // }
     const tripThings = localStorage.getItem('trip-items');
     if (tripThings) {
       setTripItems(JSON.parse(tripThings));
@@ -165,7 +160,6 @@ function ManageTrip(props) {
 
   //iterating over the response/state object
   Object.values(searchResults).forEach(val => {
-    // console.log('VAL', val, 'typeVAL Name: ', val.name)
     return val;
   });
 
@@ -173,14 +167,14 @@ function ManageTrip(props) {
   function sendTriptoBE() {
     itemDetails.forEach(e => {
       itemDelete = { item_id: e.id };
-      console.log('itemDelete: ', itemDelete, 'e id', e.id);
+      // console.log('itemDelete: ', itemDelete, 'e id', e.id);
       apiDelete(authState, '/items', itemDelete);
-      console.log('itemDelete after api call : ', itemDelete);
+      // console.log('itemDelete after api call : ', itemDelete);
     });
-    console.log('deleted item details', itemDetails);
+    // console.log('deleted item details', itemDetails);
     tripItemStr.forEach(e => {
       tripIt = { user_id: userInfo.sub, item_name: e, trip_id: trip.id };
-      console.log('tripIt: ', tripIt, 'e to string after tripIt: ', e);
+      // console.log('tripIt: ', tripIt, 'e to string after tripIt: ', e);
       apiPost(authState, '/items', tripIt);
     });
     console.log('Trip Details after sendTriptoBE: ', tripItemStr);
@@ -315,13 +309,14 @@ function ManageTrip(props) {
               onMouseEnter={() => {
                 tripItemStr = [];
                 console.log('empty tripitemstr: ', tripItemStr);
+                //formatting data to send off to BE
                 tripItems.forEach(e => {
                   var stringE = e;
                   var ele = stringE.toString();
                   var elem = ele.replace(/,/g, ' ');
-                  console.log(' e to string after replace: ', elem);
+                  // console.log(' e to string after replace: ', elem);
                   tripItemStr.push(elem);
-                  console.log('tripItemStr: ', tripItemStr);
+                  // console.log('tripItemStr: ', tripItemStr);
                   return tripItemStr;
                 });
                 console.log('mouse over trip details: ', tripItemStr);

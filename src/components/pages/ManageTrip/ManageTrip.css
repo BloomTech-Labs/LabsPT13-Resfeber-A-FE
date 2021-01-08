@@ -37,7 +37,7 @@
     padding-left: 7%;
     font-style: bold;
     font-weight: 600;
-    font-size: 54px;
+    font-size: 2.7rem;
     letter-spacing: -0.07em;
     color: black;
     /* border: 2px maroon solid; */
@@ -103,6 +103,73 @@
     margin: 0;
 }
 
+.searchForm {
+    margin: 0;
+    /* border: 3px red solid; */
+    width: 90%;
+}
+
+ @media screen and (max-width: 1055px) {
+    .search {
+        width: 95%;
+    
+    }
+    .searchForm {
+        margin: 0;
+        width: 90%;
+
+        
+    }
+    .searchBar {
+        width: 80%;
+        padding: 0.5%;
+        margin: 1%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .search {
+        width: 100%;
+        font-size: 0.9rem;
+    
+    }
+    .searchForm {
+        margin: 0;
+        width: 85%;
+    }
+    .searchBar {
+        width: 68%;
+        padding: 0.5%;
+        margin: 1%;
+        margin-left: 3%;
+    }
+    .navButt a, .submit {
+        font-size: 1rem;
+        color: white;
+        -webkit-text-stroke: none;
+    }
+    button.navButt, .submit {
+        width: 4.2rem;
+        height: 1.7em;
+        padding: 1%;
+        
+    }
+    .navGroup {
+        margin-left: 22%;
+       width: 100%;
+       height: 100%;
+       display: flex;
+       flex-direction: column;
+    }
+    .mapContainer {
+        margin-left: 36%;
+        height: 32vh;
+        width: 5%;
+        
+    }
+
+}
+
 .search-box {
     width: 75%;
     height: 100vh;
@@ -116,8 +183,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 30%;
-    margin-right: 10%;
+    width: 40%;
+    margin-right: 22%;
 }
 
 
@@ -127,7 +194,7 @@
     justify-content: center;
     align-items: center;
     border: none;
-    height: 30%;
+    height: 20%;
     margin: 1%;
     padding: 1.5%;
     border-radius: 4px;
@@ -140,13 +207,14 @@ color: white;
 }
 
 .submit {
-    color: #fd6d41;
+    color: white;
+    -webkit-text-stroke: 1px white;
     height: 10%;
     padding-left: 2.5%;
     padding-right: 2.5%;
     padding-top: .5%;
     padding-bottom: 0.5%;
-    background-color: rgb(22, 22, 22);
+    background-color: #f83a00;
     border-radius: 7px;
     border: none;
 }
@@ -163,25 +231,8 @@ color: white;
     border: none;
 }
 
-@media screen and (max-width: 1210px) {
-    .submit {
-        margin-left: -15%;
-    
-    }
-}
-
-@media screen and (max-width: 700px) {
-    .submit {
-        margin-left: -10%;
-    
-    }
-}
-
-@media screen and (max-width: 530px) {
-    .submit {
-        margin-left: -7%;
-    
-    }
+.map {
+    width: 10%;
 }
 
 .mapContainer {
@@ -191,10 +242,21 @@ color: white;
     justify-content: center;
     margin-top: 2%;
     margin-bottom: 1%;
-    padding-left: 5%;
+    margin-left: 45%;
     height: 30vh;
-    width: 100%;
+    width: 10%;
 }
+
+@media screen and (max-width: 920px) {
+    .mapContainer {
+    margin-left: 10%;
+    height: 32vh;
+    width: 80%;
+    
+    }
+}
+
+
 
 .itemContainer {
     display: flex;
@@ -318,8 +380,8 @@ margin-top: 6%;
     background-color: rgb(36, 36, 36);
     align-items: center;
     color: white;
-    width: 20vw;
-    height: 100%;
+    width: 35vw;
+    height: 100vh;
 
     /* border: 5px dodgerblue solid; */
 
@@ -332,10 +394,10 @@ margin-top: 6%;
 .pinned-title {
     font-family: Barlow;
     color: #FF511E;
-    padding-left: 7%;
+    align-self: center;
     font-style: bold;
     font-weight: 600;
-    font-size: 54px;
+    font-size: 2.7rem;
     letter-spacing: -0.07em;
 }
 

@@ -13,8 +13,8 @@ require('dotenv').config();
 
 const libraries = ['places'];
 const mapContainerStyle = {
-  width: '79vw',
-  height: '30vh',
+  width: '62vw',
+  height: '27vh',
 };
 
 export default function Map() {
