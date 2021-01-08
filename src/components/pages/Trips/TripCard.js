@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { apiDelete, apiPut } from '../../../api';
 import { Button, Card, CardBody, CardHeader, Form, Input } from 'reactstrap';
 import TripContext from '../../context/tripBeingEdited';
+import './Trips.css';
 
 function TripCard(props) {
   const [editMode, setEditMode] = useState(false);

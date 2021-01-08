@@ -54,7 +54,6 @@ function App() {
       <TripProvider value={[trip, setTrip]}>
         <Switch>
           <Route path="/welcome" component={WelcomePage} />
-
           <Route path="/login" component={LoginPage} />
           <Route path="/implicit/callback" component={LoginCallback} />
 

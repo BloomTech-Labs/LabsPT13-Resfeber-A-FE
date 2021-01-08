@@ -3,6 +3,9 @@ import { useOktaAuth } from '@okta/okta-react';
 import { apiGet, apiPost } from '../../../api';
 import { InputGroup, InputGroupAddon, Input, Button, Form } from 'reactstrap';
 import TripCard from './TripCard';
+import Logo from './Logo.svg';
+import './Trips.css';
+
 function Trips() {
   const { authState, authService } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
@@ -48,17 +51,6 @@ function Trips() {
     });
     setTrips(newTrips);
   };
-  /*  const updateTripName = trip => {
-    const newTrips = trips;
-    newTrips.forEach(e => {
-      if (e.id === trip.id) {
-        console.log(e.trip_name);
-        e.trip_name = trip.trip_name;
-      }
-    });
-    console.log(newTrips);
-    setTrips(newTrips);
-  }; */
   const updateTripName = trip => {
     const newTrips = trips.filter(e => {
       return e.id !== trip.id;
@@ -72,6 +64,9 @@ function Trips() {
         id="trips-container"
         style={{ maxWidth: '70%', margin: '1.5rem auto', alignItems: 'center' }}
       >
+        <div className="logo-Tcontainer">
+          <img className="TLogo" src={Logo} alt="Logo" />
+        </div>
         <div
           id="trips-list"
           style={{ display: 'flex', justifyContent: 'center' }}

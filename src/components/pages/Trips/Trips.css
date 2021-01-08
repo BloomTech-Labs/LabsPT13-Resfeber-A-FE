@@ -1,0 +1,40 @@
+body {
+    background-image: url('../../../images/blacktexture.jpg');
+}
+
+.logo-Tcontainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 7.5%;
+    margin-bottom: 7.5%;
+}
+
+h1 {
+    color: white;
+}
+
+h5.card-header {
+    background-color: #df4b1e;
+}
+
+.card-body {
+    border: none !important;
+}
+
+button.btn.btn-info {
+    background-color: black;
+    border: 2px black solid;
+}
+
+button.btn.btn-primary {
+    color: #ff511e;
+    background-color: black;
+    border: 2px black solid;
+}
+
+button.btn.btn-secondary {
+    background-color: #af2c04;
+    border: 2px #af2c04 solid;
+}
