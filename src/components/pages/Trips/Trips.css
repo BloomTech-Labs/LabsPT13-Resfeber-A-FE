@@ -11,6 +11,10 @@ body {
     margin-bottom: 7.5%;
 }
 
+h1 {
+    color: white;
+}
+
 h5.card-header {
     background-color: #df4b1e;
 }
