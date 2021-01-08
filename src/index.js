@@ -60,22 +60,22 @@ function App() {
 
           {/* <Route path="/createTrip" component={RenderPinnedPage} /> */}
           {/* <Route path="/manage-trip" component={ManageTrip} /> */}
-          <SecureRoute path="/manage-trip">
+          <Route path="/manage-trip">
             <ManageTrip
               tripInfoExpandedPage={tripInfoExpandedPage}
               setTripInfoExpandedPage={setTripInfoExpandedPage}
             />
-          </SecureRoute>
+          </Route>
           {/* <Route path="/expandedPage" component={ExpandedPage} /> */}
-          <SecureRoute path="/expandedPage">
+          <Route path="/expandedPage">
             <ExpandedPage
               tripInfoExpandedPage={tripInfoExpandedPage}
               setTripInfoExpandedPage={setTripInfoExpandedPage}
             />
-          </SecureRoute>
+          </Route>
 
           {/* any of the routes you need secured should be registered as SecureRoutes */}
-          <Route
+          <SecureRoute
             path="/"
             exact
             component={() => <HomePage LoadingComponent={LoadingComponent} />}
