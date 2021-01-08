@@ -51,7 +51,7 @@ function ManageTrip(props) {
   const handleTripDetailsSubmit = e => {
     e.preventDefault();
     setTripDetails([{ tripName, tripItems }]);
-    console.log('trip details state: ', tripDetails);
+
     return tripDetails;
   };
 
@@ -102,14 +102,14 @@ function ManageTrip(props) {
       .then(response => {
         resObj = response.data.results;
         resObj.map(item => {
-          console.log('item ', item);
+          // console.log('item ', item);
         });
-        console.log(
-          'the ReSuLtS: ',
-          response.data.results,
-          'setting resObj SEARCH RESULTS: ',
-          resObj
-        );
+        // console.log(
+        //   'the ReSuLtS: ',
+        //   response.data.results,
+        //   'setting resObj SEARCH RESULTS: ',
+        //   resObj
+        // );
         setSearchResults(resObj);
       })
       .catch(error => console.log('error', error));
@@ -117,10 +117,10 @@ function ManageTrip(props) {
 
   //iterating over the response/state object
   Object.values(searchResults).forEach(val => {
-    console.log('VAL', val, 'typeVAL Name: ', val.name);
+    // console.log('VAL', val, 'typeVAL Name: ', val.name);
     return val;
   });
-  console.log('STATE OUTSIDE: ', searchResults, 'specific: ', searchResults[0]);
+  // console.log('STATE OUTSIDE: ', searchResults, 'specific: ', searchResults[0]);
 
   return (
     <div className="page">
